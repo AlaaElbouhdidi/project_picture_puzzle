@@ -1,0 +1,7 @@
+{
+  "name": "bilderraetsel",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
