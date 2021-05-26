@@ -30,6 +30,8 @@ export class UserService {
       await this.afs.collection('users').doc(this.user.uid).set({
         modulesCompleted: 0,
         puzzlesPlayed: 0,
+        winRatio: 0,
+        lossRatio: 0,
         sixSeries: 0
       });
     } catch (e) {
@@ -44,6 +46,11 @@ export class UserService {
     } catch (e) {
       throw e;
     }
+  }
+
+  async logout(): Promise<void> {
+    await this.auth.signOut();
+    await this.router.navigate(['/user-login']);
   }
 
 }
