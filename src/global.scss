@@ -24,3 +24,12 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.default-alert{
+  --background: #161e2c !important;
+  --color: white !important;
+  --border-radius: 0.25rem !important;
+}
+button:disabled {
+  opacity: 70%;
+}

@@ -1,0 +1,48 @@
+<ion-content>
+
+  <div class="register-container">
+
+    <img src="assets/Logo.svg" alt="App-Logo">
+
+    <h1 class="ion-text-center">Rebus</h1>
+
+    <form (ngSubmit)="submitForm()" [formGroup]="registerForm">
+      <div class="input-wrapper">
+        <input class="register-input" formControlName="email" type="text" placeholder="email" required>
+      </div>
+
+      <div class="form-error" *ngIf="email.invalid && (email.dirty || email.touched)">
+        <div class="form-error-message" *ngIf="email.errors?.required">
+          <ion-text color="danger">Email required</ion-text>
+        </div>
+      </div>
+
+      <div class="form-error" *ngIf="email.invalid && (email.dirty || email.touched)">
+        <div class="form-error-message" *ngIf="email.errors?.email">
+          <ion-text color="danger">Email wrongly formatted</ion-text>
+        </div>
+      </div>
+
+      <div class="input-wrapper">
+        <input class="register-input" formControlName="password" type="password" placeholder="password" required>
+      </div>
+
+      <div class="form-error" *ngIf="password.invalid && (password.dirty || password.touched)">
+        <div class="form-error-message" *ngIf="password.errors?.required">
+          <ion-text color="danger">Password required</ion-text>
+        </div>
+        <div class="form-error-message" *ngIf="password.errors?.minlength">
+          <ion-text color="danger">Password has to be at least 6 characters</ion-text>
+        </div>
+      </div>
+
+      <ion-text>
+        <p>Already have an Account? <a routerLink="/user-login">Login here</a></p>
+      </ion-text>
+
+      <button type="submit" class="register-button" [disabled]="!registerForm.valid">Sign up</button>
+    </form>
+
+  </div>
+
+</ion-content>
