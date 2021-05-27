@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import firebase from "firebase";
+import firebase from 'firebase';
 import User = firebase.User;
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
@@ -26,7 +26,7 @@ export class UserService {
 
   async register(email: string, password: string): Promise<void> {
     try {
-      await this.auth.createUserWithEmailAndPassword(email, password)
+      await this.auth.createUserWithEmailAndPassword(email, password);
       await this.afs.collection('users').doc(this.user.uid).set({
         modulesCompleted: 0,
         puzzlesPlayed: 0,
