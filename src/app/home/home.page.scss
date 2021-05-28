@@ -25,3 +25,23 @@
 #container a {
   text-decoration: none;
 }
+.achievement{
+  color: #d7ad21;
+}
+.stats{
+  color: #05CBD6;
+}
+.help{
+  color: white;
+  height: 70px;
+  width: 70px;
+}
+.user{
+  color: #00e5ff;
+  height: 50px;
+  width: 50px;
+  font-size: x-large;
+}
+.container > *{
+  margin-bottom: 3rem;
+}

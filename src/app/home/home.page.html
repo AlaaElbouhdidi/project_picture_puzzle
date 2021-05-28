@@ -1,3 +1,4 @@
+<!--
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
@@ -5,16 +6,33 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
+-->
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <!--<ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Blank</ion-title>
     </ion-toolbar>
-  </ion-header>
+  </ion-header>-->
+  <div style="align-self: stretch">
+    <button (click)="logout()" type="submit" class="rounded-btn user">
+      <ion-icon name="person"></ion-icon>
+    </button>
+  </div>
+  <div class="container">
+    <img class="logo" src="{{logoURL}}" alt="App-Logo">
+    <button type="submit" class="start-btn button">Start</button>
+    <div>
+      <button type="submit" class="rounded-btn achievement">
+        <ion-icon name="trophy"></ion-icon>
+      </button>
+      <button type="submit" class="rounded-btn stats">
+        <ion-icon name="stats-chart"></ion-icon>
+      </button>
+    </div>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <button type="submit" class="rounded-btn help">
+      <ion-icon name="help-circle"></ion-icon>
+    </button>
   </div>
 </ion-content>
