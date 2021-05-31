@@ -21,6 +21,11 @@ const routes: Routes = [
     path: 'user-register',
     loadChildren: () => import('./user/user-register/user-register.module').then( m => m.UserRegisterPageModule)
   },
+  {
+    path: 'module-puzzles',
+    loadChildren: () => import('./module/module-puzzles/module-puzzles.module').then( m => m.ModulePuzzlesPageModule),
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({

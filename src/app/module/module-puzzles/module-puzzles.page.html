@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar class="toolbar-bg">
+    <ion-buttons slot="start">
+      <ion-back-button text="Back" icon="chevron-back-outline" defaultHref="home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h4 class="ion-text-center">Pick a card</h4>
+  <div class="puzzles-container">
+    <div class="puzzle-item"
+         (click)="selectPuzzle(puzzle.id)"
+         *ngFor="let puzzle of puzzles; let i = index">
+      <p>{{i + 1}}</p>
+    </div>
+  </div>
+</ion-content>

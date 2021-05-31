@@ -1,0 +1,22 @@
+h4 {
+  color: grey;
+}
+.puzzles-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 1rem;
+  row-gap: 2rem;
+  padding: 1rem 2rem 2rem 2rem;
+}
+.puzzle-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ece972;
+  height: 4rem;
+  width: 4rem;
+  font-size: 2rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 5px 1px #a8a662;
+  color: #323232;
+}
