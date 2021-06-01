@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {ModuleService} from '../module/module.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import {UserService} from '../user/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ export class HomePage {
   public logoURL;
 
   constructor(private moduleService: ModuleService, private afSG: AngularFireStorage,
-              private userService: UserService) {
+              private userService: UserService, private router: Router) {
     console.log(this.moduleService.modules);
     this.getLogoURL();
   }
@@ -24,5 +25,9 @@ export class HomePage {
   }
   logout(){
     this.userService.logout();
-}
+  }
+
+  showModuleList() {
+    this.router.navigate(['/module-list']);
+  }
 }

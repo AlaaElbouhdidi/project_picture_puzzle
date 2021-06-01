@@ -25,7 +25,11 @@ const routes: Routes = [
     path: 'module-puzzles',
     loadChildren: () => import('./module/module-puzzles/module-puzzles.module').then( m => m.ModulePuzzlesPageModule),
     canActivate: [AuthGuard]
+  },  {
+    path: 'module-list',
+    loadChildren: () => import('./module-list/module-list.module').then( m => m.ModuleListPageModule)
   },
+
 ];
 
 @NgModule({

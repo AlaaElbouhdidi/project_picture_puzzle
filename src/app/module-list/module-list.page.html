@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Zurück" color="#000000"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="startSearch()">
+        <ion-icon slot="icon-only" name="search">
+        </ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="text-align: center">
+    <p>Pick a Module</p>
+  </div>
+  <ion-item-sliding *ngFor="let module of modules">
+    <ion-item style="background-color: #00B4FF" button (click)="startRiddle(module.id)">
+      <ion-item slot="start">
+        <span>{{module.name}}</span>
+      </ion-item>
+      <ion-item slot="end">
+        <span>{{module.difficulty}}</span>
+      </ion-item>
+    </ion-item>
+
+    <ion-item-options>
+      <ion-item-option color="danger">
+        <ion-icon size="large" name="trash-outline" (click)="removeModule(module.id)"></ion-icon>
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="light">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

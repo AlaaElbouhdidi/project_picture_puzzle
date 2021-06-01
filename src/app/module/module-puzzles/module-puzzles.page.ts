@@ -31,7 +31,7 @@ export class ModulePuzzlesPage {
   }
 
   selectPuzzle(puzzleId: string): void {
-    this.router.navigate(['/module-learn', {puzzleId: puzzleId}]);
+    this.router.navigate(['/module-learn', {puzzleId}]);
   }
 
   filterAndShuffle(puzzle: Puzzle[]): Puzzle[] {

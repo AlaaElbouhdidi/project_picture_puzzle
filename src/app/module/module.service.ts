@@ -12,8 +12,8 @@ import User = firebase.User;
 })
 export class ModuleService {
   modules: Observable<Module[]>;
-  private moduleCollection: AngularFirestoreCollection<Module>;
   activePuzzles: Puzzle[] = [];
+  private moduleCollection: AngularFirestoreCollection<Module>;
 
   constructor(private afs: AngularFirestore, private userService: UserService) {
     this.moduleCollection = afs.collection<Module>(`modules`);
@@ -34,6 +34,17 @@ export class ModuleService {
       puzzle.id = doc.id;
       return puzzle;
     });
+  }
+
+  findAll(): Promise<Module[]> {
+    return this.moduleCollection.get()
+      .toPromise()
+      .then(snapshot =>
+        snapshot.docs.map(doc => {
+          const module = doc.data();
+          module.id = doc.id;
+          return module;
+        }));
   }
 
 }
