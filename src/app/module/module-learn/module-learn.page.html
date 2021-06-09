@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar class="toolbar-bg ion-text-center">
+    <div class="toolbar-content">
+      <div (click)="leaveLearnMode()">
+        <ion-icon name="close-circle-outline"></ion-icon>
+        <ion-text style="padding-left: 0.25rem">Quit</ion-text>
+      </div>
+      <h5>{{currentPuzzleIndex + 1}}/{{puzzles.length}}</h5>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="learn-container ion-padding">
+    <h5>{{puzzles[currentPuzzleIndex].question}}</h5>
+    <img *ngIf="!loadImageError" [src]="imageURL" alt="">
+    <p *ngIf="loadImageError" class="ion-padding">Image could not be loaded</p>
+
+    <div class="answers-container">
+
+      <div class="answer-item"
+           [class.shake-anim]="chosenAnswer === answer && !answer.correct"
+           *ngFor="let answer of puzzles[currentPuzzleIndex].answers; let i = index"
+           (click)="checkAnswer(answer)" >
+        <p class="answer-position">{{checkPosition(i)}}</p>
+        <p class="answer-text"
+           [class.correct-answer-blink]="correctAnswer === answer"
+           [class.correct-answer]="chosenAnswer === answer && answer.correct"
+           [class.false-answer]="chosenAnswer === answer && !answer.correct"
+        >
+          {{answer.text}}
+        </p>
+
+        <div class="answer-icon false-icon">
+          <ion-icon name="close-outline" *ngIf="chosenAnswer === answer && !answer.correct"></ion-icon>
+        </div>
+
+        <div class="answer-icon correct-icon">
+          <ion-icon name="checkmark-outline" *ngIf="chosenAnswer === answer && answer.correct"></ion-icon>
+        </div>
+
+      </div>
+
+      <div class="answer-result">
+        <p class="answer-result-incorrect" *ngIf="result === false">Incorrect!</p>
+        <p class="answer-result-correct" *ngIf="result === true">Correct!</p>
+        <div class="next-puzzle-icon" (click)="nextPuzzle()" *ngIf="showNextPuzzleIcon">
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</ion-content>

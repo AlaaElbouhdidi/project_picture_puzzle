@@ -11,6 +11,7 @@ import {Puzzle} from '../puzzle.model';
 export class ModulePuzzlesPage {
 
   puzzles: Puzzle[] = [];
+  moduleId: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -18,6 +19,7 @@ export class ModulePuzzlesPage {
     private moduleService: ModuleService
   ) {
     const moduleId = this.route.snapshot.paramMap.get('moduleId');
+    this.moduleId = moduleId;
     if (moduleId) {
       this.moduleService
         .getPuzzlesInUserModule(moduleId)
@@ -31,7 +33,7 @@ export class ModulePuzzlesPage {
   }
 
   selectPuzzle(puzzleId: string): void {
-    this.router.navigate(['/module-learn', {puzzleId}]);
+    this.router.navigate(['/module-learn', {puzzleId, moduleId: this.moduleId}]);
   }
 
   filterAndShuffle(puzzle: Puzzle[]): Puzzle[] {

@@ -20,6 +20,12 @@ export class ModuleService {
     this.modules = this.moduleCollection.valueChanges({idField: 'id'});
   }
 
+  private static copyAndPrepare(puzzle: Puzzle): Puzzle {
+    const copy = {...puzzle};
+    delete copy.id;
+    return copy;
+  }
+
   async getPuzzlesInUserModule(moduleId: string): Promise<Puzzle[]> {
     const snapshot = await this.afs
       .collection<User>('users')
@@ -34,6 +40,17 @@ export class ModuleService {
       puzzle.id = doc.id;
       return puzzle;
     });
+  }
+
+  updatePuzzleInModule(puzzle: Puzzle, moduleId: string): void {
+    this.afs
+      .collection<User>('users')
+      .doc(this.userService.user.uid)
+      .collection<Module>('modules')
+      .doc(moduleId)
+      .collection<Puzzle>('puzzles')
+      .doc(puzzle.id)
+      .update(ModuleService.copyAndPrepare(puzzle));
   }
 
   findAll(): Promise<Module[]> {

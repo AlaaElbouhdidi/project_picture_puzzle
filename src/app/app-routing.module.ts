@@ -25,10 +25,16 @@ const routes: Routes = [
     path: 'module-puzzles',
     loadChildren: () => import('./module/module-puzzles/module-puzzles.module').then( m => m.ModulePuzzlesPageModule),
     canActivate: [AuthGuard]
-  },  {
+  },
+  {
     path: 'module-list',
     loadChildren: () => import('./module-list/module-list.module').then( m => m.ModuleListPageModule)
   },
+  {
+    path: 'module-learn',
+    loadChildren: () => import('./module/module-learn/module-learn.module').then( m => m.ModuleLearnPageModule),
+    canActivate: [AuthGuard]
+  }
 
 ];
 
