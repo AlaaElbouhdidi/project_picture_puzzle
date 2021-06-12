@@ -34,6 +34,10 @@ const routes: Routes = [
     path: 'module-learn',
     loadChildren: () => import('./module/module-learn/module-learn.module').then( m => m.ModuleLearnPageModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'module-picker',
+    loadChildren: () => import('./module/module-picker/module-picker.module').then( m => m.ModulePickerPageModule)
   }
 
 ];
