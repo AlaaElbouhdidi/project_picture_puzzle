@@ -14,21 +14,29 @@
       <ion-title size="large">Blank</ion-title>
     </ion-toolbar>
   </ion-header>-->
-  <div style="align-self: stretch">
-    <button (click)="logout()" type="submit" class="rounded-btn user">
-      <ion-icon name="person"></ion-icon>
-    </button>
-  </div>
   <div class="container">
+    <div style="align-self: stretch">
+      <button (click)="logout()" type="submit" class="rounded-btn user">
+        <ion-icon name="person"></ion-icon>
+      </button>
+    </div>
     <img class="logo" src="{{logoURL}}" alt="App-Logo">
     <button type="submit" class="start-btn btn" (click)="showModuleList()">Start</button>
     <div>
-      <button type="submit" class="rounded-btn achievement">
-        <ion-icon name="trophy"></ion-icon>
-      </button>
-      <button type="submit" class="rounded-btn stats">
-        <ion-icon name="stats-chart"></ion-icon>
-      </button>
+      <ion-grid>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size="6" >
+            <button type="submit" class="rounded-btn achievement">
+              <ion-icon name="trophy"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col size="6" >
+            <button type="submit" class="rounded-btn stats">
+              <ion-icon name="stats-chart"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </div>
 
     <button type="submit" class="rounded-btn help">
