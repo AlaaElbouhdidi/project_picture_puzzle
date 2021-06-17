@@ -5,13 +5,14 @@
         <ion-icon name="close-circle-outline"></ion-icon>
         <ion-text style="padding-left: 0.25rem">Quit</ion-text>
       </div>
-      <h5>{{currentPuzzleIndex + 1}}/{{puzzles.length}}</h5>
+      <h5 *ngIf="!showStatistic">{{currentPuzzleIndex + 1}}/{{puzzles.length}}</h5>
+      <h5 *ngIf="showStatistic">Statistic</h5>
     </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="learn-container ion-padding">
+  <div class="learn-container ion-padding" *ngIf="!showStatistic">
     <h5>{{puzzles[currentPuzzleIndex].question}}</h5>
     <img *ngIf="!loadImageError" [src]="imageURL" alt="">
     <p *ngIf="loadImageError" class="ion-padding">Image could not be loaded</p>
@@ -51,4 +52,8 @@
 
     </div>
   </div>
+  <app-statistic-round
+    [statistic]="statistic"
+    *ngIf="showStatistic">
+  </app-statistic-round>
 </ion-content>

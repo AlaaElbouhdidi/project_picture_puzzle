@@ -1,0 +1,13 @@
+<div class="statistic-container ion-padding">
+  <h5>You have answered:</h5>
+  <div class="statistic-content">
+    <p>
+      <span>{{statistic.correctAnswers}}</span>
+      out of
+      <span class="dark">{{statistic.puzzlesPlayed}} <br> correctly</span>
+    </p>
+    <p><span>{{statistic.calcWinRatio()}}%</span></p>
+  </div>
+  <h2>{{message}}</h2>
+  <button (click)="nextRound()">Next Round</button>
+</div>

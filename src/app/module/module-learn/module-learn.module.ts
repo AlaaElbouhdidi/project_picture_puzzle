@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ModuleLearnPageRoutingModule } from './module-learn-routing.module';
 
 import { ModuleLearnPage } from './module-learn.page';
+import { StatisticRoundComponent } from '../../statistic/statistic-round/statistic-round.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { ModuleLearnPage } from './module-learn.page';
     IonicModule,
     ModuleLearnPageRoutingModule
   ],
-  declarations: [ModuleLearnPage]
+  declarations: [ModuleLearnPage, StatisticRoundComponent]
 })
 export class ModuleLearnPageModule {}

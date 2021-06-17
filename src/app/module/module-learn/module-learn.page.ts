@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Puzzle} from '../puzzle.model';
+import {Statistic} from '../../statistic/statistic.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Answer} from '../answer.model';
 import {ModuleService} from '../module.service';
@@ -22,6 +23,8 @@ export class ModuleLearnPage {
   result: boolean;
   imageURL: string;
   loadImageError = false;
+  statistic: Statistic;
+  showStatistic = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,6 +36,7 @@ export class ModuleLearnPage {
     this.moduleId = this.route.snapshot.paramMap.get('moduleId');
     this.puzzles = this.moduleService.activePuzzles;
     this.currentPuzzleIndex = this.findPuzzleIndex(puzzleId);
+    this.statistic = new Statistic(0, 0, 0);
     this.getImage();
   }
 
@@ -58,13 +62,16 @@ export class ModuleLearnPage {
     if (answer.correct) {
       this.result = true;
       currentPuzzle.correctlyAnsweredInRow++;
-      this.moduleService.updatePuzzleInModule(currentPuzzle, this.moduleId);
+      this.statistic.correctAnswers++;
+      //this.moduleService.updatePuzzleInModule(currentPuzzle, this.moduleId);
     } else {
       this.correctAnswer = currentPuzzle.answers.find(a => a.correct);
       this.result = false;
       currentPuzzle.correctlyAnsweredInRow = 0;
-      this.moduleService.updatePuzzleInModule(currentPuzzle, this.moduleId);
+      this.statistic.incorrectAnswers++;
+      //this.moduleService.updatePuzzleInModule(currentPuzzle, this.moduleId);
     }
+    this.statistic.puzzlesPlayed++;
     this.showNextPuzzleIcon = true;
   }
 
@@ -88,7 +95,7 @@ export class ModuleLearnPage {
       this.getImage();
       return;
     }
-    // show statistic for this round
+    this.showStatistic = true;
   }
 
   findPuzzleIndex(id: string): number {
