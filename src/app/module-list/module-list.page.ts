@@ -22,10 +22,12 @@ export class ModuleListPage {
 
   removeModule(id: string) {
     console.log('Remove Riddle: ' + id);
+    this.moduleService.delete(id); 
   }
 
   startSearch() {
     console.log('Starting Search');
   }
+ 
 
 }

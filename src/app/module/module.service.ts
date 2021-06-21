@@ -63,5 +63,10 @@ export class ModuleService {
           return module;
         }));
   }
+  delete(id : string): void{
+                
+   
+    this.moduleCollection.doc(id).delete();
+  }
 
 }
