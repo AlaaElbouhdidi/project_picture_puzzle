@@ -22,6 +22,11 @@ const routes: Routes = [
     loadChildren: () => import('./user/user-register/user-register.module').then( m => m.UserRegisterPageModule)
   },
   {
+    path: 'profil',
+    loadChildren: () => import('./profil/profil.module').then( m => m.ProfilPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'module-puzzles',
     loadChildren: () => import('./module/module-puzzles/module-puzzles.module').then( m => m.ModulePuzzlesPageModule),
     canActivate: [AuthGuard]

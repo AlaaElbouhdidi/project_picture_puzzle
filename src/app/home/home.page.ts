@@ -23,8 +23,8 @@ export class HomePage {
       this.logoURL = imgUrl;
     });
   }
-  logout(){
-    this.userService.logout();
+  profil(){
+    this.router.navigate(['/profil']);
   }
 
   showModuleList() {
