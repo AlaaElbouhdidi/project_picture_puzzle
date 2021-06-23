@@ -3,7 +3,7 @@ import {AngularFireStorage} from '@angular/fire/storage';
 import {UserService} from '../user/user.service';
 import {Router} from '@angular/router';
 import {ActionSheetController, ToastController, Platform} from '@ionic/angular';
-import { File } from '@ionic-native/File/ngx';
+import { File } from '@ionic-native/file/ngx';
 import {Camera, CameraOptions, PictureSourceType} from '@ionic-native/camera/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 
@@ -126,6 +126,9 @@ export class ProfilPage  {
   }
   logout(){
     this.userService.logout();
+  }
+  achievementTrophy(){
+    this.router.navigate(['/achievement-page']);
   }
 
 }

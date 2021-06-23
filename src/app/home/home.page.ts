@@ -30,4 +30,7 @@ export class HomePage {
   showModuleList() {
     this.router.navigate(['/module-list']);
   }
+  achievementTrophy(){
+    this.router.navigate(['/achievement-page']);
+  }
 }

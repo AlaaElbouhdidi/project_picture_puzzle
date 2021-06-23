@@ -43,6 +43,10 @@ const routes: Routes = [
   {
     path: 'module-picker',
     loadChildren: () => import('./module/module-picker/module-picker.module').then( m => m.ModulePickerPageModule)
+  },
+  {
+    path: 'achievement-page',
+    loadChildren: () => import('./achievement/achievement-page/achievement-page.module').then( m => m.AchievementPagePageModule)
   }
 
 ];
