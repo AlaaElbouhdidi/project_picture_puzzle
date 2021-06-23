@@ -47,7 +47,12 @@ const routes: Routes = [
   {
     path: 'achievement-page',
     loadChildren: () => import('./achievement/achievement-page/achievement-page.module').then( m => m.AchievementPagePageModule)
+  },
+  {
+    path: 'help',
+    loadChildren: () => import('./help/help.module').then( m => m.HelpPageModule)
   }
+
 
 ];
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase';
 import User = firebase.User;
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {UserData} from './user.model';
 
@@ -30,8 +30,9 @@ export class UserService {
 
   async register(email: string, password: string): Promise<void> {
     try {
-      await this.auth.createUserWithEmailAndPassword(email, password);
-      await this.afs.collection('users').doc(this.user.uid).set({
+      const res = await this.auth.createUserWithEmailAndPassword(email, password);
+      const userCollection = this.afs.collection('users').doc(res.user.uid);
+      await userCollection.set({
         modulesCompleted: 0,
         puzzlesPlayed: 0,
         winRatio: 0,
@@ -40,15 +41,18 @@ export class UserService {
         name: '',
         tel: ''
       });
+      await this.importUserModule('DgdtrEC7cta3H7TBQDL5');
     } catch (e) {
       throw e;
     }
   }
-    findById(id: string): Promise<UserData>{
+
+  findById(id: string): Promise<UserData>{
     return this.userCollection.doc(id).get()
       .toPromise()
       .then(snapshot => snapshot.data());
   }
+
   async loginWithPassword(email: string, password: string): Promise<void> {
     try {
       await this.auth.signInWithEmailAndPassword(email, password);
@@ -62,6 +66,16 @@ export class UserService {
   async logout(): Promise<void> {
     await this.auth.signOut();
     await this.router.navigate(['/user-login']);
+  }
+
+  async importUserModule(moduleId: string): Promise<void> {
+    const module = await this.afs.collection('modules').doc(moduleId).get().toPromise();
+    await this.afs.collection('users').doc(this.user.uid).collection('modules').doc(module.id).set(module.data());
+
+    const snapshot = await this.afs.collection('modules').doc(moduleId).collection('puzzles').get().toPromise();
+    snapshot.docs.forEach(doc => {
+      this.afs.collection('users').doc(this.user.uid).collection('modules').doc(module.id).collection('puzzles').doc(doc.id).set(doc.data());
+    });
   }
 
 }
