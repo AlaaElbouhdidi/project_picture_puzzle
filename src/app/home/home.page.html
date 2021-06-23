@@ -16,7 +16,7 @@
   </ion-header>-->
   <div class="container">
     <div style="align-self: stretch">
-      <button (click)="logout()" type="submit" class="rounded-btn user">
+      <button (click)="profil()" type="submit" class="rounded-btn user">
         <ion-icon name="person"></ion-icon>
       </button>
     </div>
@@ -26,12 +26,12 @@
       <ion-grid>
         <ion-row class="ion-justify-content-center">
           <ion-col size="6" >
-            <button type="submit" class="rounded-btn achievement">
+            <button type="submit" class="rounded-btn achievement" (click)="achievementTrophy()">
               <ion-icon name="trophy"></ion-icon>
             </button>
           </ion-col>
           <ion-col size="6" >
-            <button type="submit" class="rounded-btn stats">
+            <button type="submit" class="rounded-btn stats" (click)="statisticPage()">
               <ion-icon name="stats-chart"></ion-icon>
             </button>
           </ion-col>
@@ -39,7 +39,7 @@
       </ion-grid>
     </div>
 
-    <button type="submit" class="rounded-btn help">
+    <button type="submit" class="rounded-btn help" (click)="showHelpPage()">
       <ion-icon name="help-circle"></ion-icon>
     </button>
   </div>

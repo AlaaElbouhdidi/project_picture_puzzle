@@ -53,6 +53,20 @@ export class ModuleService {
       .update(ModuleService.copyAndPrepare(puzzle));
   }
 
+  async findAllUserModules(): Promise<Module[]> {
+    const snapshot = await this.afs
+      .collection<User>('users')
+      .doc(this.userService.user.uid)
+      .collection<Module>('modules')
+      .get()
+      .toPromise();
+    return snapshot.docs.map(doc => {
+      const module = doc.data();
+      module.id = doc.id;
+      return module;
+    });
+  }
+
   findAll(): Promise<Module[]> {
     return this.moduleCollection.get()
       .toPromise()
@@ -63,9 +77,8 @@ export class ModuleService {
           return module;
         }));
   }
+
   delete(id : string): void{
-                
-   
     this.moduleCollection.doc(id).delete();
   }
 

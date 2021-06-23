@@ -1,6 +1,6 @@
 import { Component, OnInit ,Input} from '@angular/core';
 import {Router} from '@angular/router';
-import { Statistic } from '../statistic/statistic.model';
+import { Statistic } from '../statistic.model';
 
 @Component({
   selector: 'app-statistic-page',

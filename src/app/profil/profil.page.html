@@ -1,0 +1,56 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" color="#000000"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <div style="align-self: stretch; text-align-last: end;">
+    <button (click)="logout()" type="submit" class="rounded-btn logout">
+      <ion-icon name="log-out-outline"></ion-icon>
+    </button>
+  </div>
+  <div class="container">
+    <div>
+      <ion-grid>
+        <div class="overlay">
+
+          <ion-avatar>
+            <img class="profil-pic" src="{{profilPic}}" alt="defaultPic">
+              <button type="submit" class="add-pp" (click)="selectImage()">
+                <ion-icon name="camera"></ion-icon>
+              </button>
+          </ion-avatar>
+
+
+          <ion-row>
+            <ion-card-content>
+              <ion-item>
+                <ion-icon style="color: white" name="mail"></ion-icon>
+                <ion-label>{{userService.user.email}}</ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-icon style="color: white" name="person-circle"></ion-icon>
+                <ion-label>{{userService.userData.name}}</ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-icon style="color: white" name="call"></ion-icon>
+                <ion-label>{{userService.userData.tel}}</ion-label>
+              </ion-item>
+            </ion-card-content>
+          </ion-row>
+        </div>
+      </ion-grid>
+
+    </div>
+    <div>
+      <button type="submit" class="rounded-btn " (click)="achievementTrophy()">
+        <ion-icon name="trophy"></ion-icon>
+      </button>
+      <button type="submit" class="rounded-btn ">
+        <ion-icon name="stats-chart"></ion-icon>
+      </button>
+    </div>
+  </div>
+</ion-content>

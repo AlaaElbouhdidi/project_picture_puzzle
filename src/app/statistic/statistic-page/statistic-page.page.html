@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color = "primary">
+    <ion-title class="ion-text-center">Statistic</ion-title>
+    <ion-buttons slot = "start"  (click)="back()">
+      <ion-icon slot = "icon-only" name="chevron-back-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+  </ion-header>
+
+  
+
+
+<ion-content>
+  <div class="statistic-content">
+    <p>
+      <span>{{statistic.calcWinRatio()}}%</span>
+      
+  </div>
+
+  <ion-item>
+    <ion-label slot = "start">Loss %</ion-label>
+    <ion-label slot = "end">{{lossRatio}}%</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label slot = "start">puzzlesPlayed</ion-label>
+    <ion-label slot = "end">{{puzzlesPlayed}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label slot = "start">6-Serie-Completed</ion-label>
+    <ion-label slot = "end">{{sixSerienCompleted}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label slot = "start">Modules Completed</ion-label>
+    <ion-label slot = "end">{{modulesCompleted}}</ion-label>
+  </ion-item>
+
+
+
+</ion-content>

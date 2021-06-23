@@ -22,6 +22,11 @@ const routes: Routes = [
     loadChildren: () => import('./user/user-register/user-register.module').then( m => m.UserRegisterPageModule)
   },
   {
+    path: 'profil',
+    loadChildren: () => import('./profil/profil.module').then( m => m.ProfilPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'module-puzzles',
     loadChildren: () => import('./module/module-puzzles/module-puzzles.module').then( m => m.ModulePuzzlesPageModule),
     canActivate: [AuthGuard]
@@ -38,7 +43,16 @@ const routes: Routes = [
   {
     path: 'module-picker',
     loadChildren: () => import('./module/module-picker/module-picker.module').then( m => m.ModulePickerPageModule)
+  },
+  {
+    path: 'achievement-page',
+    loadChildren: () => import('./achievement/achievement-page/achievement-page.module').then( m => m.AchievementPagePageModule)
+  },
+  {
+    path: 'help',
+    loadChildren: () => import('./help/help.module').then( m => m.HelpPageModule)
   }
+
 
 ];
 

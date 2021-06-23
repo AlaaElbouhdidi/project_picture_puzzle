@@ -36,7 +36,7 @@ export class ModuleLearnPage {
     this.moduleId = this.route.snapshot.paramMap.get('moduleId');
     this.puzzles = this.moduleService.activePuzzles;
     this.currentPuzzleIndex = this.findPuzzleIndex(puzzleId);
-    this.statistic = new Statistic(0, 0, 0);
+    this.statistic = new Statistic(0, 0, 0,0,0);
     this.getImage();
   }
 
