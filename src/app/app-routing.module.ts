@@ -33,7 +33,7 @@ const routes: Routes = [
   },
   {
     path: 'module-list',
-    loadChildren: () => import('./module-list/module-list.module').then( m => m.ModuleListPageModule)
+    loadChildren: () => import('./module/module-list/module-list.module').then(m => m.ModuleListPageModule)
   },
   {
     path: 'module-learn',

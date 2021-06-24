@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { ModuleListPageRoutingModule } from './module-list-routing.module';
 
 import { ModuleListPage } from './module-list.page';
+import {NgbRatingModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    ModuleListPageRoutingModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        ModuleListPageRoutingModule,
+        NgbRatingModule
+    ],
   declarations: [ModuleListPage]
 })
 export class ModuleListPageModule {}

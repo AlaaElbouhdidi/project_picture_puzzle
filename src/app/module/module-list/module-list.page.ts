@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection, QuerySnapshot} from '@angular/fire/firestore';
-import {Module} from '../module/module.model';
-import {ModuleService} from '../module/module.service';
+import {Module} from '../module.model';
+import {ModuleService} from '../module.service';
 
 @Component({
   selector: 'app-module-list',
@@ -22,12 +22,10 @@ export class ModuleListPage {
 
   removeModule(id: string) {
     console.log('Remove Riddle: ' + id);
-    this.moduleService.delete(id); 
+    this.moduleService.delete(id);
   }
 
   startSearch() {
     console.log('Starting Search');
   }
- 
-
 }
