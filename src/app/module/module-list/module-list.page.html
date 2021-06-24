@@ -3,12 +3,10 @@
     <ion-buttons slot="start">
       <ion-back-button text="Zurück" color="#000000"></ion-back-button>
     </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button (click)="startSearch()">
-        <ion-icon slot="icon-only" name="search">
-        </ion-icon>
-      </ion-button>
-    </ion-buttons>
+    <ion-searchbar
+      showCancelButton="focus" placeholder="Search"
+      (ionInput)="filterList($event)"
+      animated></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 

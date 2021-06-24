@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {AngularFirestore, AngularFirestoreCollection, QuerySnapshot} from '@angular/fire/firestore';
+import { Component } from '@angular/core';
 import {Module} from '../module.model';
 import {ModuleService} from '../module.service';
 import {Router} from '@angular/router';
@@ -11,9 +10,11 @@ import {Router} from '@angular/router';
 })
 export class ModuleListPage {
   modules: Module[] = [];
+  modulesBackup: Module[] = [];
 
   constructor(private moduleService: ModuleService, private router: Router) {
     moduleService.findAll().then(modules => this.modules.push(...modules));
+    this.modulesBackup = this.modules;
     console.log(this.modules);
   }
 
@@ -27,8 +28,20 @@ export class ModuleListPage {
     this.moduleService.delete(id);
   }
 
-  startSearch() {
+  filterList(evt) {
     console.log('Starting Search');
+    this.modules = this.modulesBackup;
+    const searchTerm = evt.target.value;
+    console.log(searchTerm);
+    if (!searchTerm) {
+      return;
+    }
+
+    this.modules = this.modules.filter(currentFood => {
+      if (currentFood.name && searchTerm) {
+        return (currentFood.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
+      }
+    });
   }
 
   importModule() {
