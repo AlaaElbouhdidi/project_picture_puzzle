@@ -23,13 +23,13 @@
     </ion-item>
 
     <ion-item-options style="padding-top: 2%; padding-right: 4%; padding-left: 4%" >
-      <ion-item-option color="danger">
-        <ion-icon size="large" name="trash-outline" (click)="removeModule(module.id)"></ion-icon>
+      <ion-item-option color="danger" style=" --border-radius: 10px!important;">
+        <ion-icon name="trash-outline" (click)="removeModule(module.id)"></ion-icon>
       </ion-item-option>
     </ion-item-options>
   </ion-item-sliding>
 
-  <ion-item color="success" style="padding-left: 30%; padding-right: 30%; padding-top: 5%; --border-radius: 10px">
+  <ion-item button (click)="importModule()" color="success" style="padding-left: 30%; padding-right: 30%; padding-top: 5%; --border-radius: 10px">
     <ion-grid>
       <ion-row>
         <ion-col class="ion-text-center" style="padding: 0">
