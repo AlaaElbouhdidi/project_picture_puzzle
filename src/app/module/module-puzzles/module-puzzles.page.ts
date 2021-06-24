@@ -19,7 +19,6 @@ export class ModulePuzzlesPage {
     private moduleService: ModuleService
   ) {
     const moduleId = this.route.snapshot.paramMap.get('moduleId');
-    console.log('Module: ' + moduleId);
     this.moduleId = moduleId;
     if (moduleId) {
       this.moduleService

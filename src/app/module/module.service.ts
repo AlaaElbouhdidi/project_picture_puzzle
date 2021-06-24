@@ -28,6 +28,8 @@ export class ModuleService {
 
   async getPuzzlesInUserModule(moduleId: string): Promise<Puzzle[]> {
     const snapshot = await this.afs
+      .collection<User>('users')
+      .doc(this.userService.user.uid)
       .collection<Module>('modules')
       .doc(moduleId)
       .collection<Puzzle>('puzzles')

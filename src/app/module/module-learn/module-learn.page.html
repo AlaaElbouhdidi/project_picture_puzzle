@@ -7,6 +7,10 @@
       </div>
       <h5 *ngIf="!showStatistic">{{currentPuzzleIndex + 1}}/{{puzzles.length}}</h5>
       <h5 *ngIf="showStatistic">Statistic</h5>
+      <div (click)="changeLanguage()">
+        <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+        <p>{{answerLanguage === 'eng' ? 'ENG' : 'DE'}}</p>
+      </div>
     </div>
   </ion-toolbar>
 </ion-header>
@@ -29,7 +33,7 @@
            [class.correct-answer]="chosenAnswer === answer && answer.correct"
            [class.false-answer]="chosenAnswer === answer && !answer.correct"
         >
-          {{answer.text}}
+          {{answerLanguage === 'eng' ? answer.text : answer.germanText}}
         </p>
 
         <div class="answer-icon false-icon">

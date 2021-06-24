@@ -13,7 +13,7 @@ export class ModuleListPage {
   modulesBackup: Module[] = [];
 
   constructor(private moduleService: ModuleService, private router: Router) {
-    moduleService.findAll().then(modules => this.modules.push(...modules));
+    moduleService.findAllUserModules().then(modules => this.modules.push(...modules));
     this.modulesBackup = this.modules;
     console.log(this.modules);
   }

@@ -5,6 +5,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Answer} from '../answer.model';
 import {ModuleService} from '../module.service';
 import {AngularFireStorage} from '@angular/fire/storage';
+import {AlertController} from '@ionic/angular';
+import {UserService} from '../../user/user.service';
 
 @Component({
   selector: 'app-module-learn',
@@ -25,18 +27,22 @@ export class ModuleLearnPage {
   loadImageError = false;
   statistic: Statistic;
   showStatistic = false;
+  answerLanguage: string;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private moduleService: ModuleService,
-    private afSG: AngularFireStorage
+    private afSG: AngularFireStorage,
+    private alertController: AlertController,
+    private userService: UserService
   ) {
     const puzzleId = this.route.snapshot.paramMap.get('puzzleId');
     this.moduleId = this.route.snapshot.paramMap.get('moduleId');
     this.puzzles = this.moduleService.activePuzzles;
     this.currentPuzzleIndex = this.findPuzzleIndex(puzzleId);
-    this.statistic = new Statistic(0, 0, 0,0,0);
+    this.statistic = new Statistic(0, 0, 0, 0, 0);
+    this.answerLanguage = this.userService.userData.language;
     this.getImage();
   }
 
@@ -63,13 +69,13 @@ export class ModuleLearnPage {
       this.result = true;
       currentPuzzle.correctlyAnsweredInRow++;
       this.statistic.correctAnswers++;
-      //this.moduleService.updatePuzzleInModule(currentPuzzle, this.moduleId);
+      this.moduleService.updatePuzzleInModule(currentPuzzle, this.moduleId);
     } else {
       this.correctAnswer = currentPuzzle.answers.find(a => a.correct);
       this.result = false;
       currentPuzzle.correctlyAnsweredInRow = 0;
       this.statistic.incorrectAnswers++;
-      //this.moduleService.updatePuzzleInModule(currentPuzzle, this.moduleId);
+      this.moduleService.updatePuzzleInModule(currentPuzzle, this.moduleId);
     }
     this.statistic.puzzlesPlayed++;
     this.showNextPuzzleIcon = true;
@@ -116,8 +122,66 @@ export class ModuleLearnPage {
     this.imageURL = '';
   }
 
-  leaveLearnMode(): void {
-    this.router.navigate(['/home']);
+  async changeLanguage(): Promise<void> {
+    const alert = await this.alertController.create({
+      cssClass: 'default-alert',
+      header: 'Change language',
+      message: 'Set the language in which the answers are displayed:',
+      inputs: [
+        {
+          name: 'german',
+          type: 'radio',
+          label: 'German',
+          value: 'German',
+          handler: () => {
+            const data = this.userService.userData;
+            this.answerLanguage = 'de';
+            data.language = 'de';
+            this.userService.updateUserData(data);
+            this.alertController.dismiss();
+          },
+          checked: this.answerLanguage === 'de'
+        },
+        {
+          name: 'English',
+          type: 'radio',
+          label: 'English',
+          value: 'English',
+          handler: () => {
+            const data = this.userService.userData;
+            this.answerLanguage = 'eng';
+            data.language = 'eng';
+            this.userService.updateUserData(data);
+            this.alertController.dismiss();
+          },
+          checked: this.answerLanguage === 'eng'
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async leaveLearnMode() {
+    const alert = await this.alertController.create({
+      header: 'Leave learn mode',
+      cssClass: 'default-alert',
+      message: 'Are you sure you want to leave the learn mode. No statistics from this round will be saved to your account!',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            this.alertController.dismiss();
+          }
+        }, {
+          text: 'Confirm',
+          handler: () => {
+            this.router.navigate(['/home']);
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
 }
