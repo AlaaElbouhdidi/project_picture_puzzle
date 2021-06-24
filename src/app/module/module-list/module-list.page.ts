@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection, QuerySnapshot} from '@angular/fire/firestore';
 import {Module} from '../module.model';
 import {ModuleService} from '../module.service';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-module-list',
