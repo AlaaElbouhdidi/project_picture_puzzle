@@ -58,8 +58,8 @@ export class UserService {
 
   async loginWithPassword(email: string, password: string): Promise<void> {
     try {
-      await this.auth.signInWithEmailAndPassword(email, password);
-      this.userData = await this.findById(this.user.uid);
+      const res = await this.auth.signInWithEmailAndPassword(email, password);
+      this.userData = await this.findById(res.user.uid);
       await this.router.navigate(['/home']);
     } catch (e) {
       throw e;

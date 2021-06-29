@@ -1,39 +1,47 @@
 <ion-header>
-  <ion-toolbar color = "primary">
+  <ion-toolbar class="toolbar-bg">
     <ion-title class="ion-text-center">Statistic</ion-title>
-    <ion-buttons slot = "start"  (click)="back()">
-      <ion-icon slot = "icon-only" name="chevron-back-outline"></ion-icon>
+    <ion-buttons slot="start">
+      <ion-back-button color="#000000"></ion-back-button>
     </ion-buttons>
+    <ion-icon slot="end" name="stats-chart-outline" class="ion-padding"></ion-icon>
   </ion-toolbar>
-  </ion-header>
-
-  
-
+</ion-header>
 
 <ion-content>
-  <div class="statistic-content">
-    <p>
-      <span>{{statistic.calcWinRatio()}}%</span>
-      
+
+  <div class="chart-container">
+    <h4 class="ion-text-center">WinRatio</h4>
+    <canvas class="ion-padding" #winRatioChart></canvas>
   </div>
 
-  <ion-item>
-    <ion-label slot = "start">Loss %</ion-label>
-    <ion-label slot = "end">{{lossRatio}}%</ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-label slot = "start">puzzlesPlayed</ion-label>
-    <ion-label slot = "end">{{puzzlesPlayed}}</ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-label slot = "start">6-Serie-Completed</ion-label>
-    <ion-label slot = "end">{{sixSerienCompleted}}</ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-label slot = "start">Modules Completed</ion-label>
-    <ion-label slot = "end">{{modulesCompleted}}</ion-label>
-  </ion-item>
-
-
+  <div class="stats-summary">
+    <h3 class="ion-text-center summary">Summary</h3>
+    <ion-grid>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <h5>Loss %</h5>
+          <p>{{lossRatio ? lossRatio : 0}}%</p>
+          <div class="percent-bar">
+            <div class="percent-bar-progress" [style.width]="lossRatio + '%'"></div>
+          </div>
+        </ion-col>
+        <ion-col class="ion-text-center">
+          <h5>Puzzles played</h5>
+          <p>{{puzzlesPlayed}}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <h5>6-Serie completed</h5>
+          <p>{{sixSerienCompleted}}</p>
+        </ion-col>
+        <ion-col class="ion-text-center">
+          <h5>Modules completed</h5>
+          <p>{{modulesCompleted}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 
 </ion-content>

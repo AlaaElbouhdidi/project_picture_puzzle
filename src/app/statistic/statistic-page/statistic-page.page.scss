@@ -1,0 +1,30 @@
+h3, h5 {
+  color: grey;
+}
+h4 {
+  color: #00e5ff;
+}
+.summary {
+  margin-top: 2rem;
+}
+.stats-summary {
+  color: white;
+}
+.chart-container {
+  padding: 0 3rem;
+}
+.percent-bar {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  border-radius: 0.25rem;
+  background: rgba(128, 128, 128, 0.2);
+}
+.percent-bar-progress {
+  position: absolute;
+  height: 4px;
+  border-radius: 0.25rem;
+  background: white;
+  top: 0;
+  left: 0;
+}
