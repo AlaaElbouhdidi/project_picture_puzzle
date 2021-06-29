@@ -1,48 +1,23 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="toolbar-bg">
     <ion-title class="ion-text-center">Achievements</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button text="Zurück" color="#000000"></ion-back-button>
+      <ion-back-button color="#000000"></ion-back-button>
     </ion-buttons>
+    <ion-icon slot="end" name="trophy-outline" class="ion-padding"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="achievement-container" *ngIf="displayAchievement"></div>
 
+  <main class="ion-padding">
 
-  <div class="Amateur">
-    <img src="assets/awards/Amateur.png" />
-    <ion-button (click)="displayAchievement()" color="#d7ad21" >Amateur</ion-button>
-  </div>
+    <div *ngFor="let achievement of userAchievements" (click)="showAchievementInfo(achievement)" class="achievement">
+      <img [src]="achievement.icon" alt="Achievement icon">
+      <p>{{achievement.text}}</p>
+    </div>
 
-  <div class="Beginner">
-    <img src="assets/awards/Beginner.png" />
-    <ion-button (click)="displayAchievement()" color="#d7ad21" >Beginner</ion-button>
-  </div>
-  
-  <div class="Professional">
-    <img src="assets/awards/Professional.png" />
-    <ion-button (click)="displayAchievement()" color="#d7ad21" >Professional</ion-button>
-  </div>
+  </main>
 
-  <div class="WorldClass">
-    <img src="assets/awards/WorldClass.png" />
-    <ion-button (click)="displayAchievement()" color="#d7ad21" >World Class</ion-button>
-  </div>
-
-  <div class="Legendary">
-    <img src="assets/awards/Legendary.png" />
-    <ion-button (click)="displayAchievement()" color="#d7ad21" >Legendary</ion-button>
-  </div>
-
-  <div class="Ultimate">
-    <img src="assets/awards/Ultimate.png" />
-    <ion-button (click)="displayAchievement()" color="#d7ad21" >Ultimate</ion-button>
-  </div>
- 
-  
-
-  
 </ion-content>
 
