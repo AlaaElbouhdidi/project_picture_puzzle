@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {Module} from '../module.model';
 import {ModuleService} from '../module.service';
 import {Router} from '@angular/router';
@@ -9,8 +9,11 @@ import {Router} from '@angular/router';
   styleUrls: ['./module-list.page.scss'],
 })
 export class ModuleListPage {
+  @ViewChild('search') search: any;
   modules: Module[] = [];
   modulesBackup: Module[] = [];
+  searchbarVisible = false;
+
 
   constructor(private moduleService: ModuleService, private router: Router) {
     moduleService.findAllUserModules().then(modules => this.modules.push(...modules));
@@ -42,6 +45,15 @@ export class ModuleListPage {
         return (currentFood.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
       }
     });
+  }
+  showSearchbar(){
+    this.searchbarVisible = true;
+    setTimeout(() => {
+      this.search.setFocus();
+    }, 500);
+  }
+  cancelSearch(){
+    this.searchbarVisible = false;
   }
 
   importModule() {
