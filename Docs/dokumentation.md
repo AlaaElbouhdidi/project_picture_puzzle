@@ -28,14 +28,19 @@ Auf GitLab verwalten wir unseren Quellcode. Hierfür haben wir bestimmte **Actio
 Trello ist ein auf Kanban, wo wir unsere Aufgaben verwalten haben.
 
 ### Datei Architektur ###
-** Achievement**
+
+**Achievement**
+
 /Bilderraetsel/src/app/achievement/achievement-page
 
-** Help**
+**Help**
+
 /Bilderraetsel/src/app/help
 
-** Home**
+**Home**
+
 /Bilderraetsel/src/app/home
+
 * Profil
 * Module List
 * Help
@@ -43,37 +48,46 @@ Trello ist ein auf Kanban, wo wir unsere Aufgaben verwalten haben.
 * Statistic
 
 **Module**
+
 /Bilderraetsel/src/app/module/module-list
+
 * Module List
 * delete Module
 * import new Module
 
 /Bilderraetsel/src/app/module/module-learn
+
 * Get Image von der Datenbank
 * Next Puzzle
 * Change Language Deutsch/Englich
 
 /Bilderraetsel/src/app/module/module-picker
+
 * Module importieren
 * Add Module to user
 
 /Bilderraetsel/src/app/module/module-puzzles
+
 * select Puzzle
 
-** Profil**
+**Profil**
+
 /Bilderraetsel/src/app/profil
+
 * Log Out
 * Achievement
 * Statistic
 
-** Statistic**
+**Statistic**
+
 /Bilderraetsel/src/app/statistic/statistic-page
 * Show statistic
 
 /Bilderraetsel/src/app/statistic/statistic-round
 * Next Round
 
-** User**
+**User**
+
 /Bilderraetsel/src/app/user/user-login
 
 /Bilderraetsel/src/app/user/user-register
