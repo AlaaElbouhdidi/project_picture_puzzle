@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Module} from '../module.model';
 import {ModuleService} from '../module.service';
 import {Router} from '@angular/router';
@@ -8,14 +8,16 @@ import {Router} from '@angular/router';
   templateUrl: './module-list.page.html',
   styleUrls: ['./module-list.page.scss'],
 })
-export class ModuleListPage {
+export class ModuleListPage implements OnInit{
   modules: Module[] = [];
   modulesBackup: Module[] = [];
 
   constructor(private moduleService: ModuleService, private router: Router) {
-    moduleService.findAllUserModules().then(modules => this.modules.push(...modules));
     this.modulesBackup = this.modules;
-    console.log(this.modules);
+  }
+
+  ngOnInit(): void {
+    this.moduleService.findAllUserModules().then(modules => this.modules.push(...modules));
   }
 
   startRiddle(id: string) {
@@ -46,5 +48,6 @@ export class ModuleListPage {
 
   importModule() {
     console.log('Importing Module');
+    this.router.navigate(['module-picker']);
   }
 }

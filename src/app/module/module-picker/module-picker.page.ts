@@ -1,39 +1,22 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {IonSearchbar, ModalController , AlertController, NavController} from '@ionic/angular';
+import { Component} from '@angular/core';
 import {ModuleService} from '../module.service';
-import {ActivatedRoute} from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-module-picker',
   templateUrl: './module-picker.page.html',
   styleUrls: ['./module-picker.page.scss'],
 })
-export class ModulePickerPage implements OnInit {
-
+export class ModulePickerPage {
   modules: any = [];
-  filteredModules: any = [];
-  @ViewChild(IonSearchbar) private searchbar: IonSearchbar;
-  searchTerm = '';
-  isempty = false;
 
 
-  constructor(private modalController: ModalController, private moduleService: ModuleService ,
-              private alertCtrl: AlertController  ,private route: ActivatedRoute ,  private navCtrl: NavController ) {
-    this.filteredModules = this.modules;
-  }
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
+  constructor(private moduleService: ModuleService, private router: Router) {
+    this.moduleService.getAllModules().then(modules => this.modules.push(...modules));
   }
 
-  ionViewDidEnter() {
-    this.searchbar.setFocus();
-    setTimeout(() => this.searchbar.setFocus(), 10);
-  }
-
-  doSearch($event) {
-    this.filteredModules = this.modules.filter((module) => {
-      return (module.name.includes($event.target.value)
-          || module.name.toLowerCase().includes($event.target.value) || module.name.toLowerCase().includes($event.target.value));
-    });
+  addModuleToUser(moduleID: string) {
+    this.moduleService.addModuleToUser(moduleID);
+    this.router.navigate(['module-list']);
   }
 }

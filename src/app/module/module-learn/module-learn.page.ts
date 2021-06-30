@@ -61,7 +61,7 @@ export class ModuleLearnPage {
   }
 
   checkAnswer(answer: Answer): void {
-    if (this.answerSelected) { return }
+    if (this.answerSelected) { return; }
     const currentPuzzle = this.puzzles[this.currentPuzzleIndex];
     this.answerSelected = true;
     this.chosenAnswer = answer;
@@ -84,13 +84,13 @@ export class ModuleLearnPage {
   checkPosition(index: number): string {
     switch (index) {
       case 0:
-        return 'A'
+        return 'A';
       case 1:
-        return 'B'
+        return 'B';
       case 2:
-        return 'C'
+        return 'C';
       case 3:
-        return 'D'
+        return 'D';
     }
   }
 
@@ -183,5 +183,4 @@ export class ModuleLearnPage {
     });
     await alert.present();
   }
-
 }
