@@ -9,9 +9,7 @@
   </ion-toolbar>
   <ion-searchbar #search class="toolbar-bg" style="padding: 0" *ngIf="searchbarVisible"
     showCancelButton="focus" placeholder="Search"
-    (ionInput)="filterList($event)" (ionCancel)="cancelSearch()"
-
-    animated></ion-searchbar>
+    (ionInput)="filterList($event)" (ionCancel)="cancelSearch()"></ion-searchbar>
 </ion-header>
 
 <ion-content>
@@ -21,7 +19,7 @@
   <ion-item-sliding style="padding-top: 2%; padding-right: 4%; padding-left: 4%" *ngFor="let module of modules">
     <ion-item button color="primary" style="--border-radius: 10px!important;" (click)="startRiddle(module.id)">
       <span slot="start">{{module.name}}</span>
-      <ngb-rating style="color: #FFC107" slot="end" [max]="5" [(rate)]="module.difficulty" [readonly]="false"></ngb-rating>
+      <ngb-rating style="color: #FFC107" slot="end" [max]="5" [(rate)]="module.difficulty" [readonly]="true" ></ngb-rating>
     </ion-item>
 
     <ion-item-options style="padding-top: 2%; padding-right: 4%; padding-left: 4%" >

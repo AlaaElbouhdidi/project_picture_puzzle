@@ -57,7 +57,6 @@ export class ModuleListPage implements OnInit{
   cancelSearch(){
     this.searchbarVisible = false;
   }
-
   importModule() {
     this.router.navigate(['module-picker']);
   }

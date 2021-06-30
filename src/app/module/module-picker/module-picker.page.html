@@ -1,9 +1,15 @@
 <ion-header>
-  <ion-toolbar class="toolbar-bg">
+  <ion-toolbar class="toolbar-bg"  *ngIf="!searchbarVisible">
     <ion-buttons slot="start">
       <ion-back-button text="Back" color="#000000"></ion-back-button>
     </ion-buttons>
+  <ion-buttons (click)="showSearchbar()" class="" slot="end" >
+    <ion-icon  slot="icon-only" name="search-outline"></ion-icon>
+  </ion-buttons>
   </ion-toolbar>
+  <ion-searchbar #search class="toolbar-bg" style="padding: 0" *ngIf="searchbarVisible"
+                 showCancelButton="focus" placeholder="Search"
+                 (ionInput)="filterList($event)" (ionCancel)="cancelSearch()"></ion-searchbar>
 </ion-header>
 
 <ion-content>
