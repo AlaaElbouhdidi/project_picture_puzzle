@@ -77,7 +77,8 @@ export class UserService {
 
     const snapshot = await this.afs.collection('modules').doc(moduleId).collection('puzzles').get().toPromise();
     snapshot.docs.forEach(doc => {
-      this.afs.collection('users').doc(this.user.uid).collection('modules').doc(module.id).collection('puzzles').doc(doc.id).set(doc.data());
+      this.afs.collection('users').doc(this.user.uid).collection('modules').doc(module.id).collection('puzzles')
+        .doc(doc.id).set(doc.data());
     });
   }
 

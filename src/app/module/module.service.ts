@@ -6,6 +6,7 @@ import {UserService} from '../user/user.service';
 import {Puzzle} from './puzzle.model';
 import firebase from 'firebase';
 import User = firebase.User;
+import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
 
 @Injectable({
   providedIn: 'root'
@@ -78,8 +79,32 @@ export class ModuleService {
         }));
   }
 
-  delete(id : string): void{
+  async getAllModules(): Promise<Module[]> {
+    const snapshot = await this.afs
+      .collection<Module>('modules')
+      .get()
+      .toPromise();
+    return snapshot.docs.map(doc => {
+      const module = doc.data();
+      module.id = doc.id;
+      return module;
+    });
+  }
+
+  delete(id: string): void{
     this.moduleCollection.doc(id).delete();
   }
 
+  async addModuleToUser(moduleID: string) {
+    console.log('Adding Module: ' + moduleID + ' to User: ' + this.userService.user.uid);
+    console.log();
+    const module = await this.afs.collection('modules').doc(moduleID).get().toPromise();
+    await this.afs.collection('users').doc(this.userService.user.uid).collection('modules').doc(module.id).set(module.data());
+
+    const snapshot = await this.afs.collection('modules').doc(moduleID).collection('puzzles').get().toPromise();
+    snapshot.docs.forEach(doc => {
+      this.afs.collection('users').doc(this.userService.user.uid).collection('modules').doc(module.id).collection('puzzles')
+        .doc(doc.id).set(doc.data());
+    });
+  }
 }
