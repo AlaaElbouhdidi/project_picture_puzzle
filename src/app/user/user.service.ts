@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {UserData} from './user.model';
 import User = firebase.User;
+import {Achievement} from "../achievement/achievement.model";
 
 @Injectable({
   providedIn: 'root'
@@ -40,11 +41,10 @@ export class UserService {
         correctAnswers: 0,
         incorrectAnswers: 0,
         sixSeries: 0,
-        language: 'eng',
-        name: '',
-        tel: ''
+        language: 'eng'
       });
       await this.importUserModule('DgdtrEC7cta3H7TBQDL5');
+      await this.importUserAchievements();
     } catch (e) {
       throw e;
     }
@@ -79,6 +79,21 @@ export class UserService {
     snapshot.docs.forEach(doc => {
       this.afs.collection('users').doc(this.user.uid).collection('modules').doc(module.id).collection('puzzles')
         .doc(doc.id).set(doc.data());
+    });
+  }
+
+  async importUserAchievements(): Promise<void> {
+    const snapshot = await this.afs
+      .collection<Achievement>('achievements')
+      .get()
+      .toPromise();
+    snapshot.docs.forEach(doc => {
+      this.afs
+        .collection<User>('users')
+        .doc(this.user.uid)
+        .collection<Achievement>('achievements')
+        .doc(doc.id)
+        .set(doc.data());
     });
   }
 

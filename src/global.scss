@@ -27,11 +27,16 @@
 
 .default-alert{
   --background: #161e2c !important;
-  --color: white !important;
+  --ion-text-color: white !important;
   --border-radius: 0.25rem !important;
 }
+.default-toast {
+  --background: #161e2c !important;
+  --ion-text-color: white !important;
+  text-align: center !important;
+}
 .toolbar-bg {
-  --background: linear-gradient(#252538 30%, #020418);;
+  --background: linear-gradient(#252538 30%, #020418);
 }
 button:disabled {
   opacity: 70%;

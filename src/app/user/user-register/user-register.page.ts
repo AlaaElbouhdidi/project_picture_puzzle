@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
-import { AlertController } from '@ionic/angular';
+import {AlertController, LoadingController} from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,7 +17,8 @@ export class UserRegisterPage {
     private fb: FormBuilder,
     private router: Router,
     private userService: UserService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private loadingController: LoadingController
   ) {
     this.registerForm = this.fb.group({
       email: new FormControl('', [Validators.email, Validators.required]),
@@ -32,8 +33,13 @@ export class UserRegisterPage {
   async submitForm(): Promise<void> {
     const email = this.registerForm.value.email;
     const password = this.registerForm.value.password;
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+    });
+    await loading.present();
     try {
       await this.userService.register(email, password);
+      await loading.dismiss();
       this.registerForm.reset();
       const successAlert = await this.alertController.create({
         cssClass: 'default-alert',
@@ -50,6 +56,7 @@ export class UserRegisterPage {
       });
       await successAlert.present();
     } catch (e) {
+      await loading.dismiss();
       const errorAlert = await this.alertController.create({
         cssClass: 'default-alert',
         header: 'Error',

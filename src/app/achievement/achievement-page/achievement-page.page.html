@@ -12,12 +12,20 @@
 
   <main class="ion-padding">
 
-    <div *ngFor="let achievement of userAchievements" (click)="showAchievementInfo(achievement)" class="achievement">
+    <div
+      *ngFor="let achievement of userAchievements"
+      (click)="showAchievementInfo(achievement)"
+      [class.locked]="!achievement.received"
+      class="achievement">
       <img [src]="achievement.icon" alt="Achievement icon">
       <p>{{achievement.text}}</p>
     </div>
 
   </main>
+
+  <div class="ion-text-center ion-padding" *ngIf="userAchievements.length === 0">
+    <p>Error while loading achievements!</p>
+  </div>
 
 </ion-content>
 

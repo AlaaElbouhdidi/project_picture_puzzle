@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AlertController, ToastController} from '@ionic/angular';
 import {Achievement} from '../achievement.model';
+import {AchievementService} from '../achievement.service';
 
 @Component({
   selector: 'app-achievement-page',
@@ -9,52 +10,59 @@ import {Achievement} from '../achievement.model';
 })
 export class AchievementPagePage implements OnInit {
 
-  public playAchievement: boolean = false;
-  userAchievements: Achievement[];
+  userAchievements: Achievement[] = [];
 
-  constructor(private toastCtrl: ToastController, private alertController: AlertController) {
-    this.userAchievements = this.loadTestAchievements();
-  }
+  constructor(
+    private toastCtrl: ToastController,
+    private alertController: AlertController,
+    private achievementService: AchievementService
+  ) { }
 
   ngOnInit() {
+    this.achievementService.loadUserAchievements()
+      .then(data => {
+        this.userAchievements = data;
+        this.userAchievements = this.sortAchievements();
+      })
+      .catch(() => this.userAchievements = []);
   }
 
-  displayAchievement(){
-  this.toastCtrl.create({
-    message: 'Achievement unlocked!',
-    duration: 1000
-  }).then((toast) => {
-    toast.present();
-  });
-
-  this.playAchievement = true;
-
-  setTimeout(() => {
-    this.playAchievement = false;
-  }, 2000);
-
+  sortAchievements(): Achievement[] {
+    const achievements: Achievement[] = [];
+    this.userAchievements.forEach(achievement => {
+      switch(achievement.text) {
+        case 'Amateur':
+          achievements[0] = achievement;
+          break;
+        case 'Beginner':
+          achievements[1] = achievement;
+          break;
+        case 'Professional':
+          achievements[2] = achievement;
+          break;
+        case 'World Class':
+          achievements[3] = achievement;
+          break;
+        case 'Legendary':
+          achievements[4] = achievement;
+          break;
+        case 'Ultimate':
+          achievements[5] = achievement;
+          break;
+      }
+    });
+    return achievements;
   }
 
   async showAchievementInfo(achievement: Achievement): Promise<void> {
       const alert = await this.alertController.create({
         cssClass: 'default-alert',
         header: achievement.text,
-        subHeader: `Received at: ${achievement.date}`,
+        subHeader: achievement.date ? `Received at: ${achievement.date}` : 'Not received yet',
         message: achievement.description,
         buttons: ['OK']
       });
       await alert.present();
-  }
-
-  loadTestAchievements(): Achievement[] {
-    return [
-      new Achievement('1', 'Amateur', 'assets/awards/Amateur.png', 'This is a description placeholder', new Date().toLocaleDateString()),
-      new Achievement('2', 'Beginner', 'assets/awards/Beginner.png', 'This is a description placeholder', new Date().toLocaleDateString()),
-      new Achievement('3', 'Professional', 'assets/awards/Professional.png', 'This is a description placeholder', new Date().toLocaleDateString()),
-      new Achievement('4', 'World Class', 'assets/awards/WorldClass.png', 'This is a description placeholder', new Date().toLocaleDateString()),
-      new Achievement('5', 'Legendary', 'assets/awards/Legendary.png', 'This is a description placeholder', new Date().toLocaleDateString()),
-      new Achievement('6', 'Ultimate', 'assets/awards/Ultimate.png', 'This is a description placeholder', new Date().toLocaleDateString())
-    ]
   }
 
 }

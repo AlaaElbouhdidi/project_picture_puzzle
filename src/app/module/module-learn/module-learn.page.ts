@@ -7,6 +7,7 @@ import {ModuleService} from '../module.service';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {AlertController} from '@ionic/angular';
 import {UserService} from '../../user/user.service';
+import {AchievementService} from '../../achievement/achievement.service';
 
 @Component({
   selector: 'app-module-learn',
@@ -35,7 +36,8 @@ export class ModuleLearnPage {
     private moduleService: ModuleService,
     private afSG: AngularFireStorage,
     private alertController: AlertController,
-    private userService: UserService
+    private userService: UserService,
+    private achievementService: AchievementService
   ) {
     const puzzleId = this.route.snapshot.paramMap.get('puzzleId');
     this.moduleId = this.route.snapshot.paramMap.get('moduleId');
@@ -60,7 +62,7 @@ export class ModuleLearnPage {
       });
   }
 
-  checkAnswer(answer: Answer): void {
+  async checkAnswer(answer: Answer): Promise<void> {
     if (this.answerSelected) { return; }
     const currentPuzzle = this.puzzles[this.currentPuzzleIndex];
     this.answerSelected = true;
@@ -78,6 +80,7 @@ export class ModuleLearnPage {
       this.moduleService.updatePuzzleInModule(currentPuzzle, this.moduleId);
     }
     this.statistic.puzzlesPlayed++;
+    await this.achievementService.checkAchievement(this.statistic.puzzlesPlayed + this.userService.userData.puzzlesPlayed);
     this.showNextPuzzleIcon = true;
   }
 
@@ -183,4 +186,5 @@ export class ModuleLearnPage {
     });
     await alert.present();
   }
+
 }
