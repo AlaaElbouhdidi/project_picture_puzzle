@@ -70,6 +70,10 @@ export class ModuleLearnPage {
     if (answer.correct) {
       this.result = true;
       currentPuzzle.correctlyAnsweredInRow++;
+      if (currentPuzzle.correctlyAnsweredInRow >= 6) {
+        this.statistic.sixSerienCompleted++;
+        await this.userService.updateUserData({ sixSeries: this.userService.userData.sixSeries++ });
+      }
       this.statistic.correctAnswers++;
       this.moduleService.updatePuzzleInModule(currentPuzzle, this.moduleId);
     } else {
@@ -97,13 +101,14 @@ export class ModuleLearnPage {
     }
   }
 
-  nextPuzzle(): void {
+  async nextPuzzle(): Promise<void> {
     this.reset();
     if (!(this.currentPuzzleIndex + 1 === this.puzzles.length)) {
       this.currentPuzzleIndex++;
       this.getImage();
       return;
     }
+    await this.updateStatistic();
     this.showStatistic = true;
   }
 
@@ -164,7 +169,7 @@ export class ModuleLearnPage {
     await alert.present();
   }
 
-  async leaveLearnMode() {
+  async leaveLearnMode(): Promise<void> {
     const alert = await this.alertController.create({
       header: 'Leave learn mode',
       cssClass: 'default-alert',
@@ -185,6 +190,29 @@ export class ModuleLearnPage {
       ]
     });
     await alert.present();
+  }
+
+  async updateStatistic(): Promise<void> {
+    const userStatistic = new Statistic(
+      this.userService.userData.puzzlesPlayed += this.statistic.puzzlesPlayed,
+      this.userService.userData.correctAnswers += this.statistic.correctAnswers,
+      this.userService.userData.incorrectAnswers += this.statistic.incorrectAnswers,
+      this.userService.userData.sixSeries += this.statistic.sixSerienCompleted,
+      this.userService.userData.modulesCompleted
+    );
+
+    const moduleCompleted = this.puzzles.every(puzzle => puzzle.correctlyAnsweredInRow >= 6);
+
+    const data = {
+      puzzlesPlayed: userStatistic.puzzlesPlayed,
+      correctAnswers: userStatistic.correctAnswers,
+      incorrectAnswers: userStatistic.incorrectAnswers,
+      winRatio: userStatistic.calcWinRatio(),
+      lossRatio: userStatistic.lossRatio(),
+      sixSeries: userStatistic.sixSerienCompleted,
+      modulesCompleted: moduleCompleted ? this.userService.userData.modulesCompleted++ : this.userService.userData.modulesCompleted
+    }
+    await this.userService.updateUserData(data);
   }
 
 }

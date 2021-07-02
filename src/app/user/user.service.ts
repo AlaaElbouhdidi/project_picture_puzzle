@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {UserData} from './user.model';
 import User = firebase.User;
-import {Achievement} from "../achievement/achievement.model";
+import {Achievement} from '../achievement/achievement.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,6 @@ export class UserService {
     this.userData = new UserData();
     this.auth.user.subscribe(user => {
       if (user) {
-        this.userCollection = afs.collection<UserData>('users', ref => ref.orderBy('moduleName'));
         this.user = user;
       }
     });
@@ -51,7 +50,7 @@ export class UserService {
   }
 
   findById(id: string): Promise<UserData>{
-    return this.userCollection.doc(id).get()
+    return this.afs.collection<UserData>('users').doc(id).get()
       .toPromise()
       .then(snapshot => snapshot.data());
   }
@@ -97,9 +96,9 @@ export class UserService {
     });
   }
 
-  async updateUserData(data: UserData): Promise<void> {
+  async updateUserData(data: Object): Promise<void> {
     await this.afs
-      .collection('users')
+      .collection<User>('users')
       .doc(this.user.uid)
       .update(data);
   }

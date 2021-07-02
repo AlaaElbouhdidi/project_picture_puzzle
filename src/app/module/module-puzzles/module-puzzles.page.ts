@@ -38,13 +38,16 @@ export class ModulePuzzlesPage {
 
   filterAndShuffle(puzzle: Puzzle[]): Puzzle[] {
     const filteredPuzzles = puzzle.filter(p => p.correctlyAnsweredInRow < 6);
-    for (let i = filteredPuzzles.length - 1; i > 0; i--) {
-      const newIndex = Math.floor(Math.random() * (i + 1));
-      const oldValue = filteredPuzzles[newIndex];
-      filteredPuzzles[newIndex] = filteredPuzzles[i];
-      filteredPuzzles[i] = oldValue;
+    if (filteredPuzzles.length > 0) {
+      for (let i = filteredPuzzles.length - 1; i > 0; i--) {
+        const newIndex = Math.floor(Math.random() * (i + 1));
+        const oldValue = filteredPuzzles[newIndex];
+        filteredPuzzles[newIndex] = filteredPuzzles[i];
+        filteredPuzzles[i] = oldValue;
+      }
+      return filteredPuzzles;
     }
-    return filteredPuzzles;
+    return [];
   }
 
 }

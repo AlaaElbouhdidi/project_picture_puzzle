@@ -2,7 +2,7 @@
   <ion-toolbar class="toolbar-bg">
     <ion-title class="ion-text-center">Achievements</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button color="#000000"></ion-back-button>
+      <ion-back-button icon="chevron-back-outline" defaultHref="home"></ion-back-button>
     </ion-buttons>
     <ion-icon slot="end" name="trophy-outline" class="ion-padding"></ion-icon>
   </ion-toolbar>
@@ -11,7 +11,6 @@
 <ion-content>
 
   <main class="ion-padding">
-
     <div
       *ngFor="let achievement of userAchievements"
       (click)="showAchievementInfo(achievement)"
@@ -20,7 +19,6 @@
       <img [src]="achievement.icon" alt="Achievement icon">
       <p>{{achievement.text}}</p>
     </div>
-
   </main>
 
   <div class="ion-text-center ion-padding" *ngIf="userAchievements.length === 0">
