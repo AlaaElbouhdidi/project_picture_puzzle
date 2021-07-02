@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
   templateUrl: './module-list.page.html',
   styleUrls: ['./module-list.page.scss'],
 })
-export class ModuleListPage implements OnInit{
+export class ModuleListPage {
   @ViewChild('search') search: any;
   modules: Module[] = [];
   modulesBackup: Module[] = [];
@@ -17,10 +17,7 @@ export class ModuleListPage implements OnInit{
 
   constructor(private moduleService: ModuleService, private router: Router) {
     this.modulesBackup = this.modules;
-  }
-
-  ngOnInit(): void {
-    this.moduleService.findAllUserModules().then(modules => this.modules.push(...modules));
+    //this.moduleService.findAllUserModules().then(modules => this.modules.push(...modules));
   }
 
   startRiddle(id: string) {
@@ -30,7 +27,14 @@ export class ModuleListPage implements OnInit{
 
   removeModule(id: string) {
     console.log('Remove Riddle: ' + id);
-    this.moduleService.delete(id);
+    this.moduleService.removeModuleFromUser(id);
+    this.modules.splice(0, this.modules.length);
+    this.moduleService.findAllUserModules().then(modules => this.modules.push(...modules));
+  }
+
+  ionViewDidEnter() {
+    this.modules.splice(0, this.modules.length);
+    this.moduleService.findAllUserModules().then(modules => this.modules.push(...modules));
   }
 
   filterList(evt) {

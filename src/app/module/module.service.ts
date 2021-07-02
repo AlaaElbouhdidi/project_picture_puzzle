@@ -96,8 +96,6 @@ export class ModuleService {
   }
 
   async addModuleToUser(moduleID: string) {
-    console.log('Adding Module: ' + moduleID + ' to User: ' + this.userService.user.uid);
-    console.log();
     const module = await this.afs.collection('modules').doc(moduleID).get().toPromise();
     await this.afs.collection('users').doc(this.userService.user.uid).collection('modules').doc(module.id).set(module.data());
 
@@ -106,5 +104,10 @@ export class ModuleService {
       this.afs.collection('users').doc(this.userService.user.uid).collection('modules').doc(module.id).collection('puzzles')
         .doc(doc.id).set(doc.data());
     });
+  }
+
+  removeModuleFromUser(moduleID: string) {
+    console.log('Removing Module: ' + moduleID + ' from User: ' + this.userService.user.uid);
+    this.afs.collection('users').doc(this.userService.user.uid).collection('modules').doc(moduleID).delete();
   }
 }
