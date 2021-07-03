@@ -3,35 +3,40 @@
     <ion-buttons slot="start">
       <ion-back-button icon="chevron-back-outline" defaultHref="home"></ion-back-button>
     </ion-buttons>
-    <ion-buttons (click)="showSearchbar()" slot="end" >
+    <ion-buttons (click)="showSearchbar()" slot="end" class="ion-padding-end">
       <ion-icon  slot="icon-only" name="search-outline"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar class="toolbar-bg" *ngIf="searchbarVisible">
-    <ion-searchbar #search class="toolbar-bg" style="padding: 0"
+    <ion-searchbar #search class="toolbar-bg" style="padding: 0; color: white;"
       showCancelButton="focus" placeholder="Search"
       (ionInput)="filterList($event)" (ionCancel)="cancelSearch()"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding-top" style="text-align: center">
-    <p>Pick a Module</p>
+  <div style="text-align: center">
+    <h4 style="color: white;">Pick a Module</h4>
   </div>
-  <ion-item-sliding style="padding-top: 2%; padding-right: 4%; padding-left: 4%" *ngFor="let module of modules">
+
+  <p class="ion-padding ion-text-center" style="color: white;" *ngIf="modules.length === 0 && !searchbarVisible">No modules imported</p>
+
+  <p class="ion-padding ion-text-center" style="color: white;" *ngIf="modules.length === 0 && searchbarVisible">No search results</p>
+
+  <ion-item-sliding style="padding-top: 2%; padding-right: 4%; padding-left: 4%" *ngFor="let module of modules" #slidingItem>
     <ion-item button color="primary" style="--border-radius: 10px!important;" (click)="startRiddle(module.id)">
       <span slot="start">{{module.name}}</span>
       <ngb-rating style="color: #FFC107" slot="end" [max]="5" [(rate)]="module.difficulty" [readonly]="true" ></ngb-rating>
     </ion-item>
 
     <ion-item-options style="padding-top: 2%; padding-right: 4%; padding-left: 4%" >
-      <ion-item-option color="danger" style=" --border-radius: 10px!important;">
-        <ion-icon name="trash-outline" (click)="removeModule(module.id)"></ion-icon>
+      <ion-item-option color="danger" (click)="removeModule(module.id, slidingItem)" style=" --border-radius: 10px!important;">
+        <ion-icon name="trash-outline"></ion-icon>
       </ion-item-option>
     </ion-item-options>
   </ion-item-sliding>
 
-  <ion-item button (click)="importModule()" color="success" style="padding-left: 30%; padding-right: 30%; padding-top: 5%; --border-radius: 10px">
+  <ion-item button (click)="importModule()" color="success" style="padding-left: 30%; padding-right: 30%; padding-top: 5%; --border-radius: 10px;">
     <ion-grid>
       <ion-row>
         <ion-col class="ion-text-center" style="padding: 0">

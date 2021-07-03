@@ -19,15 +19,19 @@ export class ModulePickerPage {
     this.moduleService.getAllModules().then(modules => this.modules.push(...modules));
     this.modulesBackup = this.modules;
   }
-  showSearchbar(){
+
+  showSearchbar() {
     this.searchbarVisible = true;
     setTimeout(() => {
       this.search.setFocus();
     }, 500);
   }
-  cancelSearch(){
+
+  cancelSearch() {
     this.searchbarVisible = false;
+    this.modules = this.modulesBackup;
   }
+
   filterList(evt) {
     console.log('Starting Search');
     this.modules = this.modulesBackup;
@@ -43,8 +47,10 @@ export class ModulePickerPage {
       }
     });
   }
+
   addModuleToUser(moduleID: string) {
     this.moduleService.addModuleToUser(moduleID);
     this.router.navigate(['module-list']);
   }
+
 }

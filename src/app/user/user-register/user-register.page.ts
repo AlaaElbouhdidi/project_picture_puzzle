@@ -34,7 +34,8 @@ export class UserRegisterPage {
     const email = this.registerForm.value.email;
     const password = this.registerForm.value.password;
     const loading = await this.loadingController.create({
-      message: 'Please wait...',
+      cssClass: 'default-loading',
+      message: 'Registering...',
     });
     await loading.present();
     try {

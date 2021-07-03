@@ -3,21 +3,25 @@
     <ion-buttons slot="start">
       <ion-back-button icon="chevron-back-outline"></ion-back-button>
     </ion-buttons>
-  <ion-buttons (click)="showSearchbar()" class="" slot="end" >
+  <ion-buttons (click)="showSearchbar()" class="ion-padding-end" slot="end" >
     <ion-icon  slot="icon-only" name="search-outline"></ion-icon>
   </ion-buttons>
   </ion-toolbar>
   <ion-toolbar class="toolbar-bg" *ngIf="searchbarVisible">
-    <ion-searchbar #search class="toolbar-bg" style="padding: 0"
+    <ion-searchbar #search class="toolbar-bg" style="padding: 0; color: white;"
                    showCancelButton="focus" placeholder="Search"
                    (ionInput)="filterList($event)" (ionCancel)="cancelSearch()"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
+
+  <p class="ion-padding ion-text-center" style="color: white;" *ngIf="modules.length === 0 && searchbarVisible">No search results</p>
+
+  <ion-list class="transparent">
     <ion-item button color="primary" style="--border-radius: 10px!important;padding-top: 2%; padding-right: 4%; padding-left: 4%" *ngFor="let module of modules" (click)="addModuleToUser(module.id)">
       {{module.name}}
     </ion-item>
   </ion-list>
+
 </ion-content>

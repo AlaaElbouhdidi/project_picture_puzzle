@@ -6,7 +6,6 @@ import {UserService} from '../user/user.service';
 import {Puzzle} from './puzzle.model';
 import firebase from 'firebase';
 import User = firebase.User;
-import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
 
 @Injectable({
   providedIn: 'root'
@@ -91,10 +90,6 @@ export class ModuleService {
     });
   }
 
-  delete(id: string): void{
-    this.moduleCollection.doc(id).delete();
-  }
-
   async addModuleToUser(moduleID: string) {
     const module = await this.afs.collection('modules').doc(moduleID).get().toPromise();
     await this.afs.collection('users').doc(this.userService.user.uid).collection('modules').doc(module.id).set(module.data());
@@ -106,8 +101,13 @@ export class ModuleService {
     });
   }
 
-  removeModuleFromUser(moduleID: string) {
-    console.log('Removing Module: ' + moduleID + ' from User: ' + this.userService.user.uid);
-    this.afs.collection('users').doc(this.userService.user.uid).collection('modules').doc(moduleID).delete();
+  async removeModuleFromUser(moduleID: string) {
+    await this.afs
+      .collection<User>('users')
+      .doc(this.userService.user.uid)
+      .collection<Module>('modules')
+      .doc(moduleID)
+      .delete();
   }
+
 }

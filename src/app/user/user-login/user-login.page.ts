@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
-import { AlertController } from '@ionic/angular';
+import {AlertController, LoadingController} from '@ionic/angular';
 
 @Component({
   selector: 'app-user-login',
@@ -15,7 +15,8 @@ export class UserLoginPage {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private loadingController: LoadingController
   ) {
     this.loginForm = this.fb.group({
       email: new FormControl('', [Validators.required]),
@@ -30,10 +31,17 @@ export class UserLoginPage {
   async submitForm(): Promise<void> {
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
+    const loading = await this.loadingController.create({
+      cssClass: 'default-loading',
+      message: 'Logging in...',
+    });
+    await loading.present();
     try {
       await this.userService.loginWithPassword(email, password);
+      await loading.dismiss();
       this.loginForm.reset();
     } catch (e) {
+      await loading.dismiss();
       const alert = await this.alertController.create({
         cssClass: 'default-alert',
         header: 'Error',

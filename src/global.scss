@@ -32,11 +32,17 @@
 }
 .default-toast {
   --background: #161e2c !important;
-  --ion-text-color: white !important;
+  color: white !important;
   text-align: center !important;
+}
+.default-loading {
+  --background: #161e2c !important;
+  color: white !important;
+  --border-radius: 0.25rem !important;
 }
 .toolbar-bg {
   --background: linear-gradient(#252538 30%, #020418);
+  --ion-text-color: white !important;
 }
 button:disabled {
   opacity: 70%;

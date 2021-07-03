@@ -1,7 +1,8 @@
-import {Component, ViewChild, OnInit} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {Module} from '../module.model';
 import {ModuleService} from '../module.service';
 import {Router} from '@angular/router';
+import {AlertController, IonItemSliding} from '@ionic/angular';
 
 @Component({
   selector: 'app-module-list',
@@ -15,7 +16,7 @@ export class ModuleListPage {
   searchbarVisible = false;
 
 
-  constructor(private moduleService: ModuleService, private router: Router) {
+  constructor(private moduleService: ModuleService, private router: Router, private alertController: AlertController) {
     this.modulesBackup = this.modules;
     //this.moduleService.findAllUserModules().then(modules => this.modules.push(...modules));
   }
@@ -25,11 +26,30 @@ export class ModuleListPage {
     console.log('Starting Riddle: ' + id);
   }
 
-  removeModule(id: string) {
-    console.log('Remove Riddle: ' + id);
-    this.moduleService.removeModuleFromUser(id);
-    this.modules.splice(0, this.modules.length);
-    this.moduleService.findAllUserModules().then(modules => this.modules.push(...modules));
+  async removeModule(id: string, item: IonItemSliding) {
+    const alert = await this.alertController.create({
+      header: 'Delete module',
+      cssClass: 'default-alert',
+      message: 'Are you sure you want to delete this module?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            this.alertController.dismiss();
+            item.close();
+          }
+        }, {
+          text: 'Confirm',
+          handler: async () => {
+            await this.moduleService.removeModuleFromUser(id);
+            this.modules.splice(0, this.modules.length);
+            this.moduleService.findAllUserModules().then(modules => this.modules.push(...modules));
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   ionViewDidEnter() {
@@ -38,10 +58,9 @@ export class ModuleListPage {
   }
 
   filterList(evt) {
-    console.log('Starting Search');
     this.modules = this.modulesBackup;
     const searchTerm = evt.target.value;
-    console.log(searchTerm);
+
     if (!searchTerm) {
       return;
     }
@@ -52,16 +71,21 @@ export class ModuleListPage {
       }
     });
   }
+
   showSearchbar(){
     this.searchbarVisible = true;
     setTimeout(() => {
       this.search.setFocus();
     }, 500);
   }
+
   cancelSearch(){
     this.searchbarVisible = false;
+    this.modules = this.modulesBackup;
   }
+
   importModule() {
     this.router.navigate(['module-picker']);
   }
+
 }
