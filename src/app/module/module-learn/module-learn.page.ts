@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Puzzle} from '../puzzle.model';
 import {Statistic} from '../../statistic/statistic.model';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -8,13 +8,14 @@ import {AngularFireStorage} from '@angular/fire/storage';
 import {AlertController} from '@ionic/angular';
 import {UserService} from '../../user/user.service';
 import {AchievementService} from '../../achievement/achievement.service';
+import {UserData} from '../../user/user.model';
 
 @Component({
   selector: 'app-module-learn',
   templateUrl: './module-learn.page.html',
   styleUrls: ['./module-learn.page.scss'],
 })
-export class ModuleLearnPage {
+export class ModuleLearnPage implements OnInit {
 
   moduleId: string;
   puzzles: Puzzle[];
@@ -29,6 +30,8 @@ export class ModuleLearnPage {
   statistic: Statistic;
   showStatistic = false;
   answerLanguage: string;
+  userData: UserData;
+  puzzlesPlayed: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -64,27 +67,46 @@ export class ModuleLearnPage {
 
   async checkAnswer(answer: Answer): Promise<void> {
     if (this.answerSelected) { return; }
+
     const currentPuzzle = this.puzzles[this.currentPuzzleIndex];
     this.answerSelected = true;
     this.chosenAnswer = answer;
+    this.userData.puzzlesPlayed++;
+
     if (answer.correct) {
       this.result = true;
-      currentPuzzle.correctlyAnsweredInRow++;
-      if (currentPuzzle.correctlyAnsweredInRow >= 6) {
-        this.statistic.sixSerienCompleted++;
-        await this.userService.updateUserData({ sixSeries: this.userService.userData.sixSeries++ });
-      }
       this.statistic.correctAnswers++;
-      this.moduleService.updatePuzzleInModule(currentPuzzle, this.moduleId);
+      currentPuzzle.correctlyAnsweredInRow++;
+
+      this.userData.sixSeries++;
+      if (currentPuzzle.correctlyAnsweredInRow >= 6) {
+        await this.userService.updateUserData({ sixSeries: this.userData.sixSeries });
+      }
+
+      this.userData.correctAnswers++;
+      await this.userService.updateUserData({
+        puzzlesPlayed: this.userData.puzzlesPlayed,
+        correctAnswers: this.userData.correctAnswers
+      });
+      await this.moduleService.updatePuzzleInModule(currentPuzzle, this.moduleId);
+
     } else {
+
       this.correctAnswer = currentPuzzle.answers.find(a => a.correct);
       this.result = false;
-      currentPuzzle.correctlyAnsweredInRow = 0;
       this.statistic.incorrectAnswers++;
-      this.moduleService.updatePuzzleInModule(currentPuzzle, this.moduleId);
+      currentPuzzle.correctlyAnsweredInRow = 0;
+
+      this.userData.incorrectAnswers++;
+      await this.userService.updateUserData({
+        puzzlesPlayed: this.userData.puzzlesPlayed,
+        incorrectAnswers: this.userData.incorrectAnswers
+      });
+      await this.moduleService.updatePuzzleInModule(currentPuzzle, this.moduleId);
+
     }
     this.statistic.puzzlesPlayed++;
-    await this.achievementService.checkAchievement(this.statistic.puzzlesPlayed + this.userService.userData.puzzlesPlayed);
+    await this.achievementService.checkAchievement(this.statistic.puzzlesPlayed + this.puzzlesPlayed);
     this.showNextPuzzleIcon = true;
   }
 
@@ -108,7 +130,7 @@ export class ModuleLearnPage {
       this.getImage();
       return;
     }
-    await this.updateStatistic();
+    await this.checkModuleCompleted();
     this.showStatistic = true;
   }
 
@@ -173,7 +195,7 @@ export class ModuleLearnPage {
     const alert = await this.alertController.create({
       header: 'Leave learn mode',
       cssClass: 'default-alert',
-      message: 'Are you sure you want to leave the learn mode. No statistics from this round will be saved to your account!',
+      message: 'Are you sure you want to leave the learn mode?',
       buttons: [
         {
           text: 'Cancel',
@@ -183,8 +205,11 @@ export class ModuleLearnPage {
           }
         }, {
           text: 'Confirm',
-          handler: () => {
-            this.router.navigate(['/home']);
+          handler: async () => {
+            if (!this.showStatistic) {
+              await this.checkModuleCompleted();
+            }
+            await this.router.navigate(['/home']);
           }
         }
       ]
@@ -192,27 +217,17 @@ export class ModuleLearnPage {
     await alert.present();
   }
 
-  async updateStatistic(): Promise<void> {
-    const userStatistic = new Statistic(
-      this.userService.userData.puzzlesPlayed += this.statistic.puzzlesPlayed,
-      this.userService.userData.correctAnswers += this.statistic.correctAnswers,
-      this.userService.userData.incorrectAnswers += this.statistic.incorrectAnswers,
-      this.userService.userData.sixSeries += this.statistic.sixSerienCompleted,
-      this.userService.userData.modulesCompleted
-    );
-
+  async checkModuleCompleted(): Promise<void> {
     const moduleCompleted = this.puzzles.every(puzzle => puzzle.correctlyAnsweredInRow >= 6);
-
-    const data = {
-      puzzlesPlayed: userStatistic.puzzlesPlayed,
-      correctAnswers: userStatistic.correctAnswers,
-      incorrectAnswers: userStatistic.incorrectAnswers,
-      winRatio: userStatistic.calcWinRatio(),
-      lossRatio: userStatistic.lossRatio(),
-      sixSeries: userStatistic.sixSerienCompleted,
-      modulesCompleted: moduleCompleted ? this.userService.userData.modulesCompleted++ : this.userService.userData.modulesCompleted
+    this.userData.modulesCompleted++;
+    if (moduleCompleted) {
+      await this.userService.updateUserData({modulesCompleted: this.userData.modulesCompleted});
     }
-    await this.userService.updateUserData(data);
+  }
+
+  async ngOnInit(): Promise<void> {
+    this.userData = await this.userService.findById(this.userService.user.uid);
+    this.puzzlesPlayed = this.userData.puzzlesPlayed;
   }
 
 }

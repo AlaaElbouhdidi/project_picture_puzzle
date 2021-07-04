@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Statistic} from '../statistic.model';
 import {Chart, registerables} from 'chart.js';
 import {UserService} from '../../user/user.service';
@@ -10,25 +10,28 @@ Chart.register(...registerables);
   templateUrl: './statistic-page.page.html',
   styleUrls: ['./statistic-page.page.scss'],
 })
-export class StatisticPagePage {
+export class StatisticPagePage implements OnInit {
 
   @ViewChild('winRatioChart') winRatioChart;
 
-  puzzlesPlayed: number;
-  correctAnswers: number;
-  incorrectAnswers: number;
-  lossRatio: number;
-  sixSerienCompleted: number;
-  modulesCompleted: number;
-  winRatio: number;
+  puzzlesPlayed: number = 0;
+  correctAnswers: number = 0;
+  incorrectAnswers: number = 0;
+  lossRatio: number = 0;
+  sixSerienCompleted: number = 0;
+  modulesCompleted: number = 0;
+  winRatio: number = 0;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService) { }
+
+  async ngOnInit() {
+    const data = await this.userService.findById(this.userService.user.uid);
     const userStatistic = new Statistic(
-      userService.userData.puzzlesPlayed,
-      userService.userData.correctAnswers,
-      userService.userData.incorrectAnswers,
-      userService.userData.sixSeries,
-      userService.userData.modulesCompleted
+      data.puzzlesPlayed,
+      data.correctAnswers,
+      data.incorrectAnswers,
+      data.sixSeries,
+      data.modulesCompleted
     );
     this.puzzlesPlayed = userStatistic.puzzlesPlayed;
     this.correctAnswers = userStatistic.correctAnswers;

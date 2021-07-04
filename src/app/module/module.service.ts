@@ -42,8 +42,8 @@ export class ModuleService {
     });
   }
 
-  updatePuzzleInModule(puzzle: Puzzle, moduleId: string): void {
-    this.afs
+  async updatePuzzleInModule(puzzle: Puzzle, moduleId: string): Promise<void> {
+    await this.afs
       .collection<User>('users')
       .doc(this.userService.user.uid)
       .collection<Module>('modules')
@@ -65,17 +65,6 @@ export class ModuleService {
       module.id = doc.id;
       return module;
     });
-  }
-
-  findAll(): Promise<Module[]> {
-    return this.moduleCollection.get()
-      .toPromise()
-      .then(snapshot =>
-        snapshot.docs.map(doc => {
-          const module = doc.data();
-          module.id = doc.id;
-          return module;
-        }));
   }
 
   async getAllModules(): Promise<Module[]> {

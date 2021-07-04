@@ -9,7 +9,7 @@
 </ion-header>
 
 <ion-content>
-  <h4 class="ion-text-center">Pick a card</h4>
+  <h4 class="ion-text-center" *ngIf="puzzles.length > 0">Pick a card</h4>
   <div class="puzzles-container">
     <div class="puzzle-item"
          (click)="selectPuzzle(puzzle.id)"
@@ -17,4 +17,8 @@
       <p>{{i + 1}}</p>
     </div>
   </div>
+  <p class="ion-text-center ion-padding" style="color: white;" *ngIf="puzzles.length === 0">
+    <ion-icon name="checkmark-circle-outline"></ion-icon>
+    Module successfully completed. All cards learned!
+  </p>
 </ion-content>

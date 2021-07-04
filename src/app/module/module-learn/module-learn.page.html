@@ -17,7 +17,17 @@
 
 <ion-content>
   <div class="learn-container ion-padding" *ngIf="!showStatistic">
-    <h5>{{puzzles[currentPuzzleIndex].question}}</h5>
+    <button class="next-button"
+            (click)="nextPuzzle()"
+            [class.correct-answer]="result === true"
+            [class.false-answer]="result === false"
+            *ngIf="showNextPuzzleIcon">
+      <ion-icon name="close-outline" class="ion-padding-start" *ngIf="result === false"></ion-icon>
+      <ion-icon name="checkmark-outline" class="ion-padding-start" *ngIf="result === true"></ion-icon>
+      Next puzzle
+      <ion-icon name="chevron-forward-outline" class="ion-padding-end"></ion-icon>
+    </button>
+    <h5 *ngIf="!showNextPuzzleIcon">{{puzzles[currentPuzzleIndex].question}}</h5>
     <img *ngIf="!loadImageError" [src]="imageURL" alt="">
     <p *ngIf="loadImageError" class="ion-padding">Image could not be loaded</p>
 
@@ -44,14 +54,6 @@
           <ion-icon name="checkmark-outline" *ngIf="chosenAnswer === answer && answer.correct"></ion-icon>
         </div>
 
-      </div>
-
-      <div class="answer-result">
-        <p class="answer-result-incorrect" *ngIf="result === false">Incorrect!</p>
-        <p class="answer-result-correct" *ngIf="result === true">Correct!</p>
-        <div class="next-puzzle-icon" (click)="nextPuzzle()" *ngIf="showNextPuzzleIcon">
-          <ion-icon name="chevron-forward-outline"></ion-icon>
-        </div>
       </div>
 
     </div>

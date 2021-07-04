@@ -82,29 +82,16 @@ $blue: #0066ff;
   background: $red;
   box-shadow: 0 5px 1px #8e1f1f;
 }
-.answer-result {
+.next-button {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: space-around;
-  p {
-    font-size: 1.5rem;
-    letter-spacing: 0.1rem;
-    font-weight: bold;
-    margin: 0;
-  }
-  .answer-result-incorrect {
-    color: $red;
-  }
-  .answer-result-correct {
-    color: $green;
-  }
-}
-.next-puzzle-icon {
-  background: $blue;
+  margin-bottom: 1rem;
+  width: 100%;
+  padding: 0.4rem 0;
   color: white;
-  padding: 1rem;
-  border-radius: 50%;
-  align-self: flex-end;
+  border-radius: 0.5rem;
+  animation: 0.5s fadeIn forwards;
 }
 .shake-anim {
   animation: 0.5s shake;
@@ -139,4 +126,7 @@ $blue: #0066ff;
     box-shadow: 0 5px 1px #0040ff;
   }
 }
-
+@keyframes fadeIn {
+  from {opacity: 0}
+  to {opacity: 1}
+}

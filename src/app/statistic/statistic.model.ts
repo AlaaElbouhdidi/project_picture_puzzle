@@ -2,7 +2,6 @@ export class Statistic {
   puzzlesPlayed: number;
   correctAnswers: number;
   incorrectAnswers: number;
-  winRatio: number;
   sixSerienCompleted: number;
   modulesCompleted: number;
 
@@ -11,7 +10,6 @@ export class Statistic {
     this.puzzlesPlayed = puzzlesPlayed;
     this.correctAnswers = correctAnswers;
     this.incorrectAnswers = incorrectAnswers;
-    this.winRatio = this.calcWinRatio();
     this.sixSerienCompleted = sixSerienCompleted;
     this.modulesCompleted = modulesCompleted ;
   }
