@@ -22,10 +22,8 @@ export class ProfilPage  {
                private actionSheetController: ActionSheetController,
                private camera: Camera, private file: File, private platform: Platform, private filePath: FilePath,
                private router: Router) {
-  console.log(userService.userData);
-    this.afSG.ref('/Images/ProfilPic/mannlicher-benutzer.png').getDownloadURL().subscribe(imgUrl => {
-      this.defaultPic = imgUrl;
-    });
+
+    this.defaultPic = 'assets/userpic.png';
     this.getProfilPicURL(userService.user.uid);
   }
   getProfilPicURL(uid: string) {
@@ -36,23 +34,6 @@ export class ProfilPage  {
       console.log(error);
     });
   }
-  /*uploadImage(event){
-    const file = event.target.files;
-    console.log(file);
-    const fileName = file[0];
-
-    if(fileName.type.split('/')[0] !== 'image'){
-      console.error('File is not an Image');
-      return;
-    }
-    const path = `Images/ProfilPic/${this.userService.user.uid}`;
-
-    const fileRef = this.afSG.ref(path);
-    fileRef.put(file[0]).then(() => {
-      console.log('Uploaded ', file);
-      this.router.navigate(['/profil']);
-    });
-}*/
   async presentToast(text) {
     const toast = await this.toastCtrl.create({
       message: text,
@@ -127,8 +108,11 @@ export class ProfilPage  {
   logout(){
     this.userService.logout();
   }
-  achievementTrophy(){
+  openAchievement(){
     this.router.navigate(['/achievement-page']);
+  }
+  openStatistic(){
+    this.router.navigate(['/statistic-page']);
   }
 
 }
