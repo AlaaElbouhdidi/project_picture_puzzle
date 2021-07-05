@@ -15,7 +15,6 @@ import { FilePath } from '@ionic-native/file-path/ngx';
 export class ProfilPage  {
   public profilPic;
   defaultPic;
-  name;
   constructor( private afSG: AngularFireStorage,
                public userService: UserService,
                private toastCtrl: ToastController,
@@ -69,37 +68,22 @@ export class ProfilPage  {
     const options: CameraOptions = {
       quality: 100,
       sourceType,
+      destinationType: this.camera.DestinationType.DATA_URL,
       saveToPhotoAlbum: false,
       correctOrientation: true
     };
 
     this.camera.getPicture(options).then(imagePath => {
-      if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
-        this.filePath.resolveNativePath(imagePath)
-          .then(filePath => {
-            const correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
-            const currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
-            console.log(correctPath);
-            console.log(currentName);
-            this.copyFileToStorage(correctPath, currentName);
-          });
-      } else {
-        const currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-        const correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-        console.log(correctPath);
-        console.log(currentName);
-        this.copyFileToStorage(correctPath, currentName);
-      }
+        this.copyFileToStorage(imagePath);
     });
 
   }
-  copyFileToStorage(namePath, currentName) {
-
-      const fileRef = this.afSG.ref(namePath);
-      fileRef.put(currentName).then(() => {
-        console.log('Uploaded ', namePath);
+  async copyFileToStorage(namePath) {
+      const path = `Images/ProfilPic/${this.userService.user.uid}`;
+      const fileRef = this.afSG.ref(path);
+      fileRef.putString(namePath, 'base64', {contentType:'image/jpeg'}).then(() =>{
         this.presentToast('File upload complete.');
-        this.router.navigate(['/profil']);
+        this.router.navigate(['/home']);
     }, error => {
       this.presentToast('Error while storing file.');
       console.log(error);
