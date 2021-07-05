@@ -79,7 +79,7 @@ export class ModuleService {
     });
   }
 
-  async addModuleToUser(moduleID: string) {
+  async addModuleToUser(moduleID: string): Promise<void> {
     const module = await this.afs.collection('modules').doc(moduleID).get().toPromise();
     await this.afs.collection('users').doc(this.userService.user.uid).collection('modules').doc(module.id).set(module.data());
 
@@ -90,7 +90,7 @@ export class ModuleService {
     });
   }
 
-  async removeModuleFromUser(moduleID: string) {
+  async removeModuleFromUser(moduleID: string): Promise<void> {
     await this.afs
       .collection<User>('users')
       .doc(this.userService.user.uid)

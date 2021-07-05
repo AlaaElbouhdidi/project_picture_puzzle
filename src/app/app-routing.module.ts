@@ -33,7 +33,8 @@ const routes: Routes = [
   },
   {
     path: 'module-list',
-    loadChildren: () => import('./module/module-list/module-list.module').then(m => m.ModuleListPageModule)
+    loadChildren: () => import('./module/module-list/module-list.module').then(m => m.ModuleListPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'module-learn',
@@ -42,19 +43,23 @@ const routes: Routes = [
   },
   {
     path: 'module-picker',
-    loadChildren: () => import('./module/module-picker/module-picker.module').then( m => m.ModulePickerPageModule)
+    loadChildren: () => import('./module/module-picker/module-picker.module').then( m => m.ModulePickerPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'achievement-page',
-    loadChildren: () => import('./achievement/achievement-page/achievement-page.module').then( m => m.AchievementPagePageModule)
+    loadChildren: () => import('./achievement/achievement-page/achievement-page.module').then( m => m.AchievementPagePageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'help',
-    loadChildren: () => import('./help/help.module').then( m => m.HelpPageModule)
+    loadChildren: () => import('./help/help.module').then( m => m.HelpPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'statistic-page',
-    loadChildren: () => import('./statistic/statistic-page/statistic-page.module').then( m => m.StatisticPagePageModule)
+    loadChildren: () => import('./statistic/statistic-page/statistic-page.module').then( m => m.StatisticPagePageModule),
+    canActivate: [AuthGuard]
   }
 
 ];

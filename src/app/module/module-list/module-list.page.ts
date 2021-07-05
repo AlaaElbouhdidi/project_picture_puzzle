@@ -15,15 +15,12 @@ export class ModuleListPage {
   modulesBackup: Module[] = [];
   searchbarVisible = false;
 
-
   constructor(private moduleService: ModuleService, private router: Router, private alertController: AlertController) {
     this.modulesBackup = this.modules;
-    //this.moduleService.findAllUserModules().then(modules => this.modules.push(...modules));
   }
 
   startRiddle(id: string) {
     this.router.navigate(['module-puzzles', {moduleId: id}]);
-    console.log('Starting Riddle: ' + id);
   }
 
   async removeModule(id: string, item: IonItemSliding) {
@@ -65,21 +62,21 @@ export class ModuleListPage {
       return;
     }
 
-    this.modules = this.modules.filter(currentFood => {
-      if (currentFood.name && searchTerm) {
-        return (currentFood.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
+    this.modules = this.modules.filter(module => {
+      if (module.name && searchTerm) {
+        return (module.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
       }
     });
   }
 
-  showSearchbar(){
+  showSearchbar() {
     this.searchbarVisible = true;
     setTimeout(() => {
       this.search.setFocus();
     }, 500);
   }
 
-  cancelSearch(){
+  cancelSearch() {
     this.searchbarVisible = false;
     this.modules = this.modulesBackup;
   }

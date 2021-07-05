@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import {ModuleService} from '../module/module.service';
 import {AngularFireStorage} from '@angular/fire/storage';
-import {UserService} from '../user/user.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -10,10 +8,10 @@ import {Router} from '@angular/router';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+
   public logoURL;
 
-  constructor(private moduleService: ModuleService, private afSG: AngularFireStorage,
-              private userService: UserService, private router: Router) {
+  constructor(private afSG: AngularFireStorage, private router: Router) {
     this.getLogoURL();
   }
 
@@ -23,7 +21,7 @@ export class HomePage {
     });
   }
 
-  profil(){
+  showProfile() {
     this.router.navigate(['/profil']);
   }
 
@@ -35,10 +33,12 @@ export class HomePage {
     this.router.navigate(['/help']);
   }
 
-  achievementTrophy(){
+  showAchievements() {
     this.router.navigate(['/achievement-page']);
   }
-  statisticPage(){
+
+  showStatistics() {
     this.router.navigate(['/statistic-page']);
   }
+
 }

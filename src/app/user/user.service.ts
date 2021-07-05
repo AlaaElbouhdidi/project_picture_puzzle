@@ -35,8 +35,6 @@ export class UserService {
       await userCollection.set({
         modulesCompleted: 0,
         puzzlesPlayed: 0,
-        winRatio: 0,
-        lossRatio: 0,
         correctAnswers: 0,
         incorrectAnswers: 0,
         sixSeries: 0,

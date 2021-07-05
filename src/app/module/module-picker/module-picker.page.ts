@@ -14,7 +14,6 @@ export class ModulePickerPage {
   modulesBackup: Module[] = [];
   searchbarVisible = false;
 
-
   constructor(private moduleService: ModuleService, private router: Router) {
     this.moduleService.getAllModules().then(modules => this.modules.push(...modules));
     this.modulesBackup = this.modules;
@@ -33,24 +32,23 @@ export class ModulePickerPage {
   }
 
   filterList(evt) {
-    console.log('Starting Search');
     this.modules = this.modulesBackup;
     const searchTerm = evt.target.value;
-    console.log(searchTerm);
+
     if (!searchTerm) {
       return;
     }
 
-    this.modules = this.modules.filter(currentFood => {
-      if (currentFood.name && searchTerm) {
-        return (currentFood.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
+    this.modules = this.modules.filter(module => {
+      if (module.name && searchTerm) {
+        return (module.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
       }
     });
   }
 
-  addModuleToUser(moduleID: string) {
-    this.moduleService.addModuleToUser(moduleID);
-    this.router.navigate(['module-list']);
+  async addModuleToUser(moduleID: string) {
+    await this.moduleService.addModuleToUser(moduleID);
+    await this.router.navigate(['module-list']);
   }
 
 }
