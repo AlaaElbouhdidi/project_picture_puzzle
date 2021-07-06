@@ -78,8 +78,8 @@ export class ModuleLearnPage implements OnInit {
       this.statistic.correctAnswers++;
       currentPuzzle.correctlyAnsweredInRow++;
 
-      this.userData.sixSeries++;
       if (currentPuzzle.correctlyAnsweredInRow >= 6) {
+        this.userData.sixSeries++;
         await this.userService.updateUserData({ sixSeries: this.userData.sixSeries });
       }
 
