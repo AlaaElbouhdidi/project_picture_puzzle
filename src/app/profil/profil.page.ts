@@ -15,32 +15,34 @@ import { FilePath } from '@ionic-native/file-path/ngx';
 export class ProfilPage  {
   public profilPic;
   defaultPic;
+
   constructor( private afSG: AngularFireStorage,
                public userService: UserService,
                private toastCtrl: ToastController,
                private actionSheetController: ActionSheetController,
                private camera: Camera, private file: File, private platform: Platform, private filePath: FilePath,
                private router: Router) {
-
     this.defaultPic = 'assets/userpic.png';
     this.getProfilPicURL(userService.user.uid);
   }
+
   getProfilPicURL(uid: string) {
     this.afSG.ref('/Images/ProfilPic/'+uid+'').getDownloadURL().subscribe(imgUrl => {
       this.profilPic = imgUrl;
-    }, error => {
+    }, () => {
       this.profilPic = this.defaultPic;
-      console.log(error);
     });
   }
+
   async presentToast(text) {
     const toast = await this.toastCtrl.create({
       message: text,
       position: 'bottom',
       duration: 3000
     });
-    toast.present();
+    await toast.present();
   }
+
   async selectImage() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Select Image source',
@@ -64,6 +66,7 @@ export class ProfilPage  {
     });
     await actionSheet.present();
   }
+
   takePicture(sourceType: PictureSourceType) {
     const options: CameraOptions = {
       quality: 100,
@@ -78,6 +81,7 @@ export class ProfilPage  {
     });
 
   }
+
   async copyFileToStorage(namePath) {
       const path = `Images/ProfilPic/${this.userService.user.uid}`;
       const fileRef = this.afSG.ref(path);
@@ -89,13 +93,16 @@ export class ProfilPage  {
       console.log(error);
     });
   }
-  logout(){
+
+  logout() {
     this.userService.logout();
   }
-  openAchievement(){
+
+  openAchievement() {
     this.router.navigate(['/achievement-page']);
   }
-  openStatistic(){
+
+  openStatistic() {
     this.router.navigate(['/statistic-page']);
   }
 
