@@ -26,9 +26,9 @@ export class UserRegisterPage {
     });
   }
 
-  get email() { return this.registerForm.controls.email }
+  get email() { return this.registerForm.controls.email; }
 
-  get password() { return this.registerForm.controls.password }
+  get password() { return this.registerForm.controls.password; }
 
   async submitForm(): Promise<void> {
     const email = this.registerForm.value.email;

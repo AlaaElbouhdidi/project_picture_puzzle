@@ -11,8 +11,6 @@ import User = firebase.User;
 })
 export class AchievementService {
 
-  userAchievements: Achievement[];
-
   constructor(
     private toastCtrl: ToastController,
     private afs: AngularFirestore,
@@ -32,7 +30,7 @@ export class AchievementService {
     const data = {
       received: true,
       date: new Date().toLocaleDateString()
-    }
+    };
     switch (puzzlesPlayed) {
       case 10:
         await this.updateAchievement('MfOq2JLybuzEN9zCDNFV', data);
@@ -61,7 +59,7 @@ export class AchievementService {
     }
   }
 
-  async updateAchievement(id: string, data: Object): Promise<void> {
+  async updateAchievement(id: string, data: any): Promise<void> {
     await this.afs
       .collection<User>('users')
       .doc(this.userService.user.uid)

@@ -14,13 +14,13 @@ export class StatisticPagePage implements OnInit {
 
   @ViewChild('winRatioChart') winRatioChart;
 
-  puzzlesPlayed: number = 0;
-  correctAnswers: number = 0;
-  incorrectAnswers: number = 0;
-  lossRatio: number = 0;
-  sixSerienCompleted: number = 0;
-  modulesCompleted: number = 0;
-  winRatio: number = 0;
+  puzzlesPlayed = 0;
+  correctAnswers = 0;
+  incorrectAnswers = 0;
+  lossRatio = 0;
+  sixSerienCompleted = 0;
+  modulesCompleted = 0;
+  winRatio = 0;
 
   constructor(private userService: UserService) { }
 
@@ -63,19 +63,19 @@ export class StatisticPagePage implements OnInit {
       },
       plugins: [{
         id: 'doughnut-text-center',
-        beforeDraw: function(chart) {
-          let width = chart.width,
-            height = chart.height,
-            ctx = chart.ctx;
+        beforeDraw: (chart) => {
+          const width = chart.width;
+          const height = chart.height;
+          const ctx = chart.ctx;
 
           ctx.restore();
-          let fontSize = (height / 114).toFixed(2);
+          const fontSize = (height / 114).toFixed(2);
           ctx.font = fontSize + 'rem sans-serif';
           ctx.textBaseline = 'middle';
 
-          let text = winRatio + '%',
-            textX = Math.round((width - ctx.measureText(text).width) / 2),
-            textY = height / 2;
+          const text = winRatio + '%';
+          const textX = Math.round((width - ctx.measureText(text).width) / 2);
+          const textY = height / 2;
 
           ctx.fillStyle = '#ffffff';
           ctx.fillText(text, textX, textY);

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import firebase from 'firebase';
 import {Router} from '@angular/router';
-import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
+import {AngularFirestore} from '@angular/fire/firestore';
 import {UserData} from './user.model';
 import User = firebase.User;
 import {Achievement} from '../achievement/achievement.model';
@@ -11,7 +11,6 @@ import {Achievement} from '../achievement/achievement.model';
   providedIn: 'root'
 })
 export class UserService {
-  userCollection: AngularFirestoreCollection<UserData>;
   userData: UserData;
   user: User | null = null;
 
@@ -94,7 +93,7 @@ export class UserService {
     });
   }
 
-  async updateUserData(data: Object): Promise<void> {
+  async updateUserData(data: any): Promise<void> {
     await this.afs
       .collection<User>('users')
       .doc(this.user.uid)

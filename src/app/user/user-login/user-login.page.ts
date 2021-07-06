@@ -24,9 +24,9 @@ export class UserLoginPage {
     });
   }
 
-  get email() { return this.loginForm.controls.email }
+  get email() { return this.loginForm.controls.email; }
 
-  get password() { return this.loginForm.controls.password }
+  get password() { return this.loginForm.controls.password; }
 
   async submitForm(): Promise<void> {
     const email = this.loginForm.value.email;
