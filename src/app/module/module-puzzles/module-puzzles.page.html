@@ -4,7 +4,11 @@
     <ion-buttons slot="start">
       <ion-back-button icon="chevron-back-outline" defaultHref="home"></ion-back-button>
     </ion-buttons>
-    <ion-icon slot="end" name="extension-puzzle-outline" class="ion-padding"></ion-icon>
+    <ion-buttons slot="end">
+      <ion-button (click)="showInfo()">
+        <ion-icon name="information-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

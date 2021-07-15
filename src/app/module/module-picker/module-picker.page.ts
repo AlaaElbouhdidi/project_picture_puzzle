@@ -28,15 +28,12 @@ export class ModulePickerPage {
         for(let i = 0; i < modules.length; i++) {
           // eslint-disable-next-line @typescript-eslint/prefer-for-of
           for(let j = 0; j < this.userModules.length; j++){
-            console.log('Vergleiche ' + modules[i].name + ' mit ' + this.userModules[j].name);
             if(modules[i].id === this.userModules[j].id) {
-              console.log('Splice ' + modules[i].name + ' Position in Array: ' + i);
               modules.splice(i, 1);
             }
           }
         }
         this.modules.push(...modules);
-        console.log(modules);
       }
     );
   }

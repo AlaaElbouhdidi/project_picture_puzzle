@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ModuleService} from '../module.service';
 import {Puzzle} from '../puzzle.model';
+import {AlertController} from '@ionic/angular';
 
 @Component({
   selector: 'app-module-puzzles',
@@ -16,7 +17,8 @@ export class ModulePuzzlesPage {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private moduleService: ModuleService
+    private moduleService: ModuleService,
+    private alertController: AlertController
   ) {
     const moduleId = this.route.snapshot.paramMap.get('moduleId');
     this.moduleId = moduleId;
@@ -48,6 +50,17 @@ export class ModulePuzzlesPage {
       return filteredPuzzles;
     }
     return [];
+  }
+
+  async showInfo(): Promise<void> {
+    const alert = await this.alertController.create({
+      cssClass: 'default-alert',
+      header: 'Info',
+      message: 'Pick a card from where you want to start playing the module. This allows you to play ' +
+        'only the amount of cards in a module you want to play.',
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 
 }

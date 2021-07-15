@@ -16,7 +16,7 @@
 
 <ion-content>
   <div style="text-align: center">
-    <h4 style="color: white;">Pick a Module</h4>
+    <h4 style="color: white;">Pick a module</h4>
   </div>
 
   <p class="ion-padding ion-text-center" style="color: white;" *ngIf="modules.length === 0 && !searchbarVisible">No modules imported</p>
@@ -30,24 +30,16 @@
     </ion-item>
 
     <ion-item-options style="padding-top: 2%; padding-right: 4%; padding-left: 4%" >
-      <ion-item-option color="danger" (click)="removeModule(module.id, slidingItem)" style=" --border-radius: 10px!important;">
+      <ion-item-option class="delete-btn" color="danger" (click)="removeModule(module.id, slidingItem)">
         <ion-icon name="trash-outline"></ion-icon>
       </ion-item-option>
     </ion-item-options>
   </ion-item-sliding>
 
-  <ion-item button (click)="importModule()" color="success" style="padding-left: 30%; padding-right: 30%; padding-top: 5%; --border-radius: 10px;">
-    <ion-grid>
-      <ion-row>
-        <ion-col class="ion-text-center" style="padding: 0">
-          <ion-icon name="add-circle" size="large"></ion-icon>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col class="ion-text-center" style="padding: 0">
-          <span>Import Module</span>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-item>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="success" (click)="importModule()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>
