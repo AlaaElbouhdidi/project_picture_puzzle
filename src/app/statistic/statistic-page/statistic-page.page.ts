@@ -42,6 +42,12 @@ export class StatisticPagePage implements OnInit {
     this.modulesCompleted = userStatistic.modulesCompleted;
   }
 
+  /**
+   * Creates a doughnut chart showing the ratio of wins to losses.
+   *
+   * @param winRatio The win ratio.
+   * @param lossRatio The loss ratio.
+   */
   createDoughnutChart(winRatio: number, lossRatio: number): void {
     if (isNaN(winRatio) || isNaN(lossRatio)) {
       winRatio = 100;

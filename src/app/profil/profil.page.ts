@@ -20,13 +20,17 @@ export class ProfilPage  {
                public userService: UserService,
                private toastCtrl: ToastController,
                private actionSheetController: ActionSheetController,
-               private camera: Camera, private file: File, private platform: Platform, private filePath: FilePath,
-               private router: Router) {
+               private camera: Camera,
+               private file: File,
+               private platform: Platform,
+               private filePath: FilePath,
+               private router: Router
+  ) {
     this.defaultPic = 'assets/userpic.png';
     this.getProfilPicURL(userService.user.uid);
   }
 
-  getProfilPicURL(uid: string) {
+  getProfilPicURL(uid: string): void {
     this.afSG.ref('/Images/ProfilPic/'+uid+'').getDownloadURL().subscribe(imgUrl => {
       this.profilPic = imgUrl;
     }, () => {
@@ -34,7 +38,7 @@ export class ProfilPage  {
     });
   }
 
-  async presentToast(text) {
+  async presentToast(text: string): Promise<void> {
     const toast = await this.toastCtrl.create({
       message: text,
       position: 'bottom',
@@ -43,7 +47,7 @@ export class ProfilPage  {
     await toast.present();
   }
 
-  async selectImage() {
+  async selectImage(): Promise<void> {
     const actionSheet = await this.actionSheetController.create({
       header: 'Select Image source',
       buttons: [{
@@ -67,7 +71,7 @@ export class ProfilPage  {
     await actionSheet.present();
   }
 
-  takePicture(sourceType: PictureSourceType) {
+  takePicture(sourceType: PictureSourceType): void {
     const options: CameraOptions = {
       quality: 100,
       sourceType,
@@ -82,7 +86,7 @@ export class ProfilPage  {
 
   }
 
-  async copyFileToStorage(namePath) {
+  async copyFileToStorage(namePath): Promise<void> {
       const path = `Images/ProfilPic/${this.userService.user.uid}`;
       const fileRef = this.afSG.ref(path);
       fileRef.putString(namePath, 'base64', {contentType:'image/jpeg'}).then(() =>{
@@ -94,15 +98,15 @@ export class ProfilPage  {
     });
   }
 
-  logout() {
+  logout(): void {
     this.userService.logout();
   }
 
-  openAchievement() {
+  openAchievement(): void {
     this.router.navigate(['/achievement-page']);
   }
 
-  openStatistic() {
+  openStatistic(): void {
     this.router.navigate(['/statistic-page']);
   }
 

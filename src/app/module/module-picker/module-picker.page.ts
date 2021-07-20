@@ -20,7 +20,10 @@ export class ModulePickerPage {
     this.modulesBackup = this.modules;
   }
 
-  async renderModules() {
+  /**
+   * Sets the modules to all modules the user has not already imported.
+   */
+  async renderModules(): Promise<void> {
     this.userModules = await this.moduleService.findAllUserModules();
     this.moduleService.getAllModules().then(
       modules => {
@@ -38,19 +41,24 @@ export class ModulePickerPage {
     );
   }
 
-  showSearchbar() {
+  showSearchbar(): void {
     this.searchbarVisible = true;
     setTimeout(() => {
       this.search.setFocus();
     }, 500);
   }
 
-  cancelSearch() {
+  cancelSearch(): void {
     this.searchbarVisible = false;
     this.modules = this.modulesBackup;
   }
 
-  filterList(evt) {
+  /**
+   * Filter the modules based on their name and the given search term.
+   *
+   * @param evt
+   */
+  filterList(evt): void {
     this.modules = this.modulesBackup;
     const searchTerm = evt.target.value;
 
@@ -65,7 +73,7 @@ export class ModulePickerPage {
     });
   }
 
-  async addModuleToUser(moduleID: string) {
+  async addModuleToUser(moduleID: string): Promise<void> {
     await this.moduleService.addModuleToUser(moduleID);
     await this.router.navigate(['module-list']);
   }

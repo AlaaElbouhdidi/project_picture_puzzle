@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Entwicklung",
+    "file": "entwicklung.md"
+  },
+  {
+    "title": "Projektbeschreibung",
+    "file": "beschreibung.md"
+  },
+  {
+    "title": "Datenmodelle",
+    "file": "datenmodelle.md",
+    "children": [
+      {
+        "title": "User",
+        "file": "models/user.md"
+      },
+      {
+        "title": "Module",
+        "file": "models/module.md"
+      },
+      {
+        "title": "Achievements",
+        "file": "models/achievements.md"
+      }
+    ]
+  },
+  {
+    "title": "Systemkommunikation",
+    "file": "systemkommunikation.md"
+  }
+]

@@ -27,6 +27,9 @@ export class AchievementPagePage implements OnInit {
       .catch(() => this.userAchievements = []);
   }
 
+  /**
+   * Sort the achievements from easiest to hardest to obtain.
+   */
   sortAchievements(): Achievement[] {
     const achievements: Achievement[] = [];
     this.userAchievements.forEach(achievement => {
@@ -54,6 +57,11 @@ export class AchievementPagePage implements OnInit {
     return achievements;
   }
 
+  /**
+   * Show info about a specific achievement (when it was received, whats the requirement to obtain it).
+   *
+   * @param achievement The achievement to show the info of.
+   */
   async showAchievementInfo(achievement: Achievement): Promise<void> {
       const alert = await this.alertController.create({
         cssClass: 'default-alert',

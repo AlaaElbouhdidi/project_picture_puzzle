@@ -38,6 +38,12 @@ export class ModulePuzzlesPage {
     this.router.navigate(['/module-learn', {puzzleId, moduleId: this.moduleId}]);
   }
 
+  /**
+   * Filters out all puzzles which were correctly answered less than six times in a row.
+   * Afterwards shuffles array to place each puzzle in random order.
+   *
+   * @param puzzle The array of puzzles to filter and shuffle.
+   */
   filterAndShuffle(puzzle: Puzzle[]): Puzzle[] {
     const filteredPuzzles = puzzle.filter(p => p.correctlyAnsweredInRow < 6);
     if (filteredPuzzles.length > 0) {

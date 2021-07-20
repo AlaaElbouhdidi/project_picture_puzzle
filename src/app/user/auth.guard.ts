@@ -10,6 +10,12 @@ export class AuthGuard implements CanActivate {
 
   constructor(private userService: UserService, private router: Router) {}
 
+  /**
+   * Checks if a user is logged in. If not redirects the user to the login page.
+   *
+   * @param route
+   * @param state
+   */
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,

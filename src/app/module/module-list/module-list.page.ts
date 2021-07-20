@@ -19,11 +19,17 @@ export class ModuleListPage {
     this.modulesBackup = this.modules;
   }
 
-  startRiddle(id: string) {
+  startRiddle(id: string): void {
     this.router.navigate(['module-puzzles', {moduleId: id}]);
   }
 
-  async removeModule(id: string, item: IonItemSliding) {
+  /**
+   * Show confirmation alert to remove module and handle corresponding action.
+   *
+   * @param id The id of the module to remove.
+   * @param item The sliding item to close if alert is cancelled.
+   */
+  async removeModule(id: string, item: IonItemSliding): Promise<void> {
     const alert = await this.alertController.create({
       header: 'Delete module',
       cssClass: 'default-alert',
@@ -54,7 +60,12 @@ export class ModuleListPage {
     this.moduleService.findAllUserModules().then(modules => this.modules.push(...modules));
   }
 
-  filterList(evt) {
+  /**
+   * Filter the modules based on their name and the given search term.
+   *
+   * @param evt
+   */
+  filterList(evt): void {
     this.modules = this.modulesBackup;
     const searchTerm = evt.target.value;
 
@@ -69,19 +80,19 @@ export class ModuleListPage {
     });
   }
 
-  showSearchbar() {
+  showSearchbar(): void {
     this.searchbarVisible = true;
     setTimeout(() => {
       this.search.setFocus();
     }, 500);
   }
 
-  cancelSearch() {
+  cancelSearch(): void {
     this.searchbarVisible = false;
     this.modules = this.modulesBackup;
   }
 
-  importModule() {
+  importModule(): void {
     this.router.navigate(['module-picker']);
   }
 

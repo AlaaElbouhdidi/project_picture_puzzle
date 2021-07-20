@@ -51,6 +51,9 @@ export class ModuleLearnPage implements OnInit {
     this.getImage();
   }
 
+  /**
+   * Get the image of the currently active puzzle.
+   */
   getImage(): void {
     this.afSG.ref(this.puzzles[this.currentPuzzleIndex].image)
       .getDownloadURL()
@@ -65,6 +68,11 @@ export class ModuleLearnPage implements OnInit {
       });
   }
 
+  /**
+   * Check an answer and update corresponding values depending on if answer is correct or incorrect.
+   *
+   * @param answer The answer to check.
+   */
   async checkAnswer(answer: Answer): Promise<void> {
     if (this.answerSelected) { return; }
 
@@ -110,6 +118,15 @@ export class ModuleLearnPage implements OnInit {
     this.showNextPuzzleIcon = true;
   }
 
+  /**
+   * Check a number and return a letter based on the number.
+   * 0 - A
+   * 1 - B
+   * 2 - C
+   * 3 - D
+   *
+   * @param index The number to check.
+   */
   checkPosition(index: number): string {
     switch (index) {
       case 0:
@@ -123,6 +140,9 @@ export class ModuleLearnPage implements OnInit {
     }
   }
 
+  /**
+   * Show next puzzle unless there is no more puzzles to play, then show the statistic of the current round.
+   */
   async nextPuzzle(): Promise<void> {
     this.reset();
     if (!(this.currentPuzzleIndex + 1 === this.puzzles.length)) {
@@ -134,6 +154,11 @@ export class ModuleLearnPage implements OnInit {
     this.showStatistic = true;
   }
 
+  /**
+   * Get the index of a puzzle in the puzzles array.
+   *
+   * @param id The id of the puzzle to find the index of.
+   */
   findPuzzleIndex(id: string): number {
     for(let i = 0; i < this.puzzles.length; i++) {
       if (this.puzzles[i].id === id) {
@@ -152,6 +177,9 @@ export class ModuleLearnPage implements OnInit {
     this.imageURL = '';
   }
 
+  /**
+   * Change the language in which the answers are displayed to english or german.
+   */
   async changeLanguage(): Promise<void> {
     const alert = await this.alertController.create({
       cssClass: 'default-alert',
@@ -191,6 +219,9 @@ export class ModuleLearnPage implements OnInit {
     await alert.present();
   }
 
+  /**
+   * Show confirmation alert to leave the learn mode and redirect to home view.
+   */
   async leaveLearnMode(): Promise<void> {
     const alert = await this.alertController.create({
       header: 'Leave learn mode',
@@ -217,6 +248,10 @@ export class ModuleLearnPage implements OnInit {
     await alert.present();
   }
 
+  /**
+   * Check if all puzzles in a module are correctly answered six times in a row.
+   * If yes the module is completed.
+   */
   async checkModuleCompleted(): Promise<void> {
     const moduleCompleted = this.puzzles.every(puzzle => puzzle.correctlyAnsweredInRow >= 6);
     this.userData.modulesCompleted++;

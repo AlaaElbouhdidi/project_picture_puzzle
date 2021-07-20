@@ -17,6 +17,9 @@ export class AchievementService {
     private userService: UserService
   ) { }
 
+  /**
+   * Display an achievement notification on the screen which disappears after a given time.
+   */
   async displayAchievementNotification(): Promise<void> {
     const toast = await this.toastCtrl.create({
       cssClass: 'default-toast',
@@ -26,6 +29,17 @@ export class AchievementService {
     await toast.present();
   }
 
+  /**
+   * Check if enough puzzles were played to get a specific achievement.
+   * 10 played - Amateur,
+   * 25 played - Beginner,
+   * 50 played - Professional,
+   * 100 played - World Class,
+   * 200 played - Legendary,
+   * 500 played - Ultimate
+   *
+   * @param puzzlesPlayed The amount of puzzles played.
+   */
   async checkAchievement(puzzlesPlayed: number) {
     const data = {
       received: true,
@@ -59,6 +73,12 @@ export class AchievementService {
     }
   }
 
+  /**
+   * Update an achievement of the logged in user.
+   *
+   * @param id The id of the achievement.
+   * @param data The data to update the achievement with.
+   */
   async updateAchievement(id: string, data: any): Promise<void> {
     await this.afs
       .collection<User>('users')
@@ -68,6 +88,9 @@ export class AchievementService {
       .update(data);
   }
 
+  /**
+   * Load all achievements of the logged in user.
+   */
   async loadUserAchievements(): Promise<Achievement[]> {
     const snapshot = await this.afs
       .collection<User>('users')
