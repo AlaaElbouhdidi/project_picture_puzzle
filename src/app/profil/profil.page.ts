@@ -80,9 +80,13 @@ export class ProfilPage  {
       correctOrientation: true
     };
 
-    this.camera.getPicture(options).then(imagePath => {
+    this.camera.getPicture(options)
+      .then(imagePath => {
         this.copyFileToStorage(imagePath);
-    });
+      })
+      .catch(() => {
+        this.presentToast('Feature not supported yet');
+      });
 
   }
 
@@ -92,9 +96,8 @@ export class ProfilPage  {
       fileRef.putString(namePath, 'base64', {contentType:'image/jpeg'}).then(() =>{
         this.presentToast('File upload complete.');
         this.router.navigate(['/home']);
-    }, error => {
+    }, () => {
       this.presentToast('Error while storing file.');
-      console.log(error);
     });
   }
 

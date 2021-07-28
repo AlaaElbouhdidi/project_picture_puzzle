@@ -2,19 +2,19 @@ export class Statistic {
   puzzlesPlayed: number;
   correctAnswers: number;
   incorrectAnswers: number;
-  sixSerienCompleted: number;
+  sixSeriesCompleted: number;
   modulesCompleted: number;
 
   constructor(puzzlesPlayed: number, correctAnswers: number, incorrectAnswers: number,
-              sixSerienCompleted: number, modulesCompleted: number) {
+              sixSeriesCompleted: number, modulesCompleted: number) {
     this.puzzlesPlayed = puzzlesPlayed;
     this.correctAnswers = correctAnswers;
     this.incorrectAnswers = incorrectAnswers;
-    this.sixSerienCompleted = sixSerienCompleted;
+    this.sixSeriesCompleted = sixSeriesCompleted;
     this.modulesCompleted = modulesCompleted ;
   }
 
-  calcWinRatio(): number {
+  winRatio(): number {
     return Number(((this.correctAnswers / this.puzzlesPlayed) * 100).toFixed(2));
   }
 

@@ -22,7 +22,7 @@ export class StatisticRoundComponent implements OnInit {
    * Gets a message depending on the win ratio.
    */
   getMessage(): string {
-    const winRatio = this.statistic.calcWinRatio();
+    const winRatio = this.statistic.winRatio();
     if (winRatio < 20) {
       return 'Keep learning!';
     } else if (winRatio < 40) {

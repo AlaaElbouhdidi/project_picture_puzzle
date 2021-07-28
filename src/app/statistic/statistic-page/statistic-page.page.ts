@@ -18,7 +18,7 @@ export class StatisticPagePage implements OnInit {
   correctAnswers = 0;
   incorrectAnswers = 0;
   lossRatio = 0;
-  sixSerienCompleted = 0;
+  sixSeriesCompleted = 0;
   modulesCompleted = 0;
   winRatio = 0;
 
@@ -37,8 +37,8 @@ export class StatisticPagePage implements OnInit {
     this.correctAnswers = userStatistic.correctAnswers;
     this.incorrectAnswers = userStatistic.incorrectAnswers;
     this.lossRatio = userStatistic.lossRatio();
-    this.winRatio = userStatistic.calcWinRatio();
-    this.sixSerienCompleted = userStatistic.sixSerienCompleted;
+    this.winRatio = userStatistic.winRatio();
+    this.sixSeriesCompleted = userStatistic.sixSeriesCompleted;
     this.modulesCompleted = userStatistic.modulesCompleted;
   }
 
