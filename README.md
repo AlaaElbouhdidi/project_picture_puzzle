@@ -1,6 +1,9 @@
 # Rebus
 **Rebus** is a picture puzzle game. 
 
+
+![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/64467713/156412910-aaff95cb-5bca-4c58-8f77-3b032240f7e9.gif)
+
 ## Installation
 
 Use local npm packages
