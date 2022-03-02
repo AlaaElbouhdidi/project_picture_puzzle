@@ -1,14 +1,48 @@
 # Rebus
-Das Projekt **Rebus** (Bilderrätsel) wird als Prüfungsleistung im Modul **Entwicklung mobiler Applikationen** an der Technischen Hochschule Mittelhessen entwickelt.
+**Rebus** is a picture puzzle game. 
 
-## Entwicklerteam
-* Alaa El Bouhdidi
-* Mourad Boulahfa
-* Tim Pez
-* Mouad Jaouani
-* Colin Benjamin Kristen
+## Installation
 
+Use local npm packages
+
+```
+npm install
+```
+
+If you're using `ionic-cli` installed globally not locally you should install the latest beta version in order to run this project.
+```
+npm install -g ionic@beta
+```
+
+For testing in the browser
+
+```
+ionic serve
+```
+
+For android
+
+```
+ionic platform add android
+ionic run android
+```
+
+For iOS
+
+```
+ionic platform add ios
+ionic run ios
+```
+
+## Platforms
+
+- Android
+- iOS
+
+
+## Acknowledgements
+This project was part of the University of applied science Gießen 
 ## Dokumentation
-Die Dokumentation des Projekts wurde nach den Anforderungen der Dozenten erstellt und ist [hier][1] zu finden.
+The Documentation of this Project is [here][1] to find.
 
 [1]:	https://bilderraetsel-c0fc5.web.app/
